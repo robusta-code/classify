@@ -26,6 +26,7 @@ package io.robusta.classify.business;
 import io.robusta.classify.ClassifyDataSource;
 import io.robusta.classify.domain.Ad;
 import io.robusta.classify.domain.User;
+import io.robusta.rra.resource.ResourceCollectionWrapper;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -50,11 +51,17 @@ public class AdBusiness {
         Collection<Ad> result = new ArrayList<Ad>();
 
         for (Ad ad : ds.getAds()){
-            if (user.equals(ad.getUser())){
+            if (user.equals(ad.getGuy())){
                 result.add(ad);
             }
         }
         return result;
+    }
+
+    public Ad find(long id){
+        ResourceCollectionWrapper<Long, Ad> wrapper = new ResourceCollectionWrapper(ds.getAds());
+        return wrapper.getById(id);
+
     }
 
 }

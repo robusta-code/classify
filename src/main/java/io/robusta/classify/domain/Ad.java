@@ -25,6 +25,7 @@ package io.robusta.classify.domain;
 
 
 import io.robusta.rra.Resource;
+import io.robusta.rra.resource.ResourceSerializer;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -35,10 +36,10 @@ import java.util.Map;
  * Nicolas Zozol for Robusta Code 2014
  * @author Nicolas Zozol
  */
-public class Ad implements Resource<Long> {
+public class Ad implements Resource<Long> , Comparable<Ad>{
 
     long id;
-    User user;
+    User guy;
     String title;
     String content;
     float price;
@@ -46,14 +47,18 @@ public class Ad implements Resource<Long> {
     Category category;
     Collection<Tag> tags = new ArrayList<Tag>();
 
-    public Ad(long id, User user, String title, String content, float price, Category category) {
+    public Ad() {
+    }
+
+    public Ad(long id, User guy, String title, String content, float price, Category category) {
         this.id = id;
-        this.user = user;
+        this.guy = guy;
         this.title = title;
         this.content = content;
         this.price = price;
         this.category = category;
     }
+
 
     @Override
     public Long getId() {
@@ -67,7 +72,7 @@ public class Ad implements Resource<Long> {
 
     @Override
     public Map<String, Object> serialize() {
-        return null;
+        return ResourceSerializer.serialize(this);
     }
 
     @Override
@@ -109,8 +114,8 @@ public class Ad implements Resource<Long> {
         this.price = price;
     }
 
-    public User getUser() {
-        return user;
+    public User getGuy() {
+        return guy;
     }
 
     public Category getCategory() {
@@ -119,5 +124,15 @@ public class Ad implements Resource<Long> {
 
     public Collection<Tag> getTags() {
         return tags;
+    }
+
+    @Override
+    public String toString() {
+        return this.title+":"+this.content;
+    }
+
+    @Override
+    public int compareTo(Ad ad) {
+        return ((Float)this.price).compareTo(ad.getPrice());
     }
 }

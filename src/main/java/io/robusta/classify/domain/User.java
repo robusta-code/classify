@@ -45,7 +45,7 @@ public class User implements Resource<Long>{
 
     @Override
     public String getPrefix() {
-        return "user";
+        return "guy";
     }
 
     @Override
@@ -73,5 +73,14 @@ public class User implements Resource<Long>{
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", name='" + name + '\'' +
+                '}';
     }
 }
