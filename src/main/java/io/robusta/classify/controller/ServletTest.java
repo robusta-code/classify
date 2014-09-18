@@ -63,8 +63,9 @@ public class ServletTest extends ServletController {
         }
         System.out.println("getRepresentation "+getRepresentation(request));
         System.out.println("validate "+validate( request,  response,"name", "email"));
-        System.out.println("1"+getClientProperty().isChrome(request));
-        System.out.println("2"+getClientProperty().isFF(request));
+        System.out.println("isChrome()" + getClientProperty().isChrome(request));
+        System.out.println("isFF()" + getClientProperty().isFF(request));
+        response.getWriter().println(getRepresentation(request));
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

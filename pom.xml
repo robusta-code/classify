@@ -18,6 +18,13 @@
         </repositories>
 -->
 
+    <properties>
+        <java-version>1.6</java-version>
+        <org.springframework-version>3.1.1.RELEASE</org.springframework-version>
+        <org.aspectj-version>1.6.10</org.aspectj-version>
+        <org.slf4j-version>1.6.6</org.slf4j-version>
+    </properties>
+
     <dependencies>
 
         <!-- http://stackoverflow.com/questions/22338317/ -->
@@ -69,11 +76,23 @@
             <version>2.3.3</version>
         </dependency>
 
-        <!-- library to parse user-agent in http header-->
+        <!-- Spring -->
         <dependency>
-            <groupId>net.sf.uadetector</groupId>
-            <artifactId>uadetector-resources</artifactId>
-            <version>2014.08</version>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${org.springframework-version}</version>
+            <exclusions>
+                <!-- Exclude Commons Logging in favor of SLF4j -->
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${org.springframework-version}</version>
         </dependency>
 
 
