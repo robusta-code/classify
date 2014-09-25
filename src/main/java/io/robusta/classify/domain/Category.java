@@ -23,7 +23,7 @@
 
 package io.robusta.classify.domain;
 
-import io.robusta.rra.Resource;
+import io.robusta.rra.resource.Resource;
 
 import java.util.*;
 

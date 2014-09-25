@@ -76,6 +76,25 @@ public class SpringControllerTest extends SpringController {
         return null;
     }
 
+    @RequestMapping(value = "/client", method = RequestMethod.GET)
+    public String client(Locale locale, Model model, HttpServletRequest request,
+                         HttpServletResponse response) throws IOException {
+
+        if (request.getParameter("p1") != null){
+            response.getWriter().println(request.getParameter("p1"));
+        }
+        else
+        {
+            response.getWriter().println("ok");
+        }
+
+        return null;
+    }
+
+
+    public void ok(){
+
+    }
     @Override
     public MyClientProperty getClientProperty() {
         return (MyClientProperty) super.getClientProperty();

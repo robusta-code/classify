@@ -33,34 +33,35 @@ import java.util.Collection;
 
 /**
  * Nicolas Zozol for Robusta Code 2014
+ * 
  * @author Nicolas Zozol
  */
 public class AdBusiness {
 
     ClassifyDataSource ds = ClassifyDataSource.getInstance();
 
-    public Collection<Ad> list(){
+    public Collection<Ad> list() {
         return ds.getAds();
     }
 
-    public Collection<Ad> list(User user){
+    public Collection<Ad> list( User user ) {
 
-        if (user == null){
-            throw new IllegalArgumentException("User shall not be null at thus point");
+        if ( user == null ) {
+            throw new IllegalArgumentException( "User shall not be null at thus point" );
         }
         Collection<Ad> result = new ArrayList<Ad>();
 
-        for (Ad ad : ds.getAds()){
-            if (user.equals(ad.getGuy())){
-                result.add(ad);
+        for ( Ad ad : ds.getAds() ) {
+            if ( user.equals( ad.getGuy() ) ) {
+                result.add( ad );
             }
         }
         return result;
     }
 
-    public Ad find(long id){
-        ResourceCollectionWrapper<Long, Ad> wrapper = new ResourceCollectionWrapper(ds.getAds());
-        return wrapper.getById(id);
+    public Ad find( long id ) {
+        ResourceCollectionWrapper<Long, Ad> wrapper = new ResourceCollectionWrapper( ds.getAds() );
+        return wrapper.getById( id );
 
     }
 

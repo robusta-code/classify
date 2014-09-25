@@ -28,12 +28,13 @@ import io.robusta.classify.business.UserBusiness;
 import io.robusta.classify.domain.Ad;
 import io.robusta.classify.domain.Category;
 import io.robusta.classify.domain.User;
-import io.robusta.rra.Representation;
+import io.robusta.rra.representation.Representation;
 import io.robusta.rra.representation.implementation.GsonRepresentation;
 import io.robusta.rra.representation.implementation.JacksonRepresentation;
 import io.robusta.rra.representation.implementation.XstreamRepresentation;
 
 import javax.ws.rs.*;
+
 import java.util.*;
 
 /**
@@ -248,6 +249,7 @@ public class AdController /* Here should extends JaxRsController with all the co
         Representation repMerge=rep.merge("titi","toto",rep1);
         return repMerge.toString();
     }
+
 
 
 }
