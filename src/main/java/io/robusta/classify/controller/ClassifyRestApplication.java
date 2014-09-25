@@ -30,6 +30,7 @@ import javax.ws.rs.core.Application;
  * Nicolas Zozol for Robusta Code 2014
  * @author Nicolas Zozol
  */
+//
 @ApplicationPath("api")
-public class ClassifyRestApplication extends Application{
+public class ClassifyRestApplication {//extends Application{
 }

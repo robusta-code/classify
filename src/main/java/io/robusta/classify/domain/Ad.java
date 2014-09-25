@@ -23,7 +23,6 @@
 
 package io.robusta.classify.domain;
 
-
 import io.robusta.rra.resource.Resource;
 import io.robusta.rra.resource.ResourceSerializer;
 
@@ -31,6 +30,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
+
+
 
 /**
  * Nicolas Zozol for Robusta Code 2014

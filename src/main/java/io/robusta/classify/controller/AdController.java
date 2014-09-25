@@ -26,7 +26,6 @@ package io.robusta.classify.controller;
 import io.robusta.classify.business.AdBusiness;
 import io.robusta.classify.business.UserBusiness;
 import io.robusta.classify.domain.Ad;
-import io.robusta.classify.domain.Category;
 import io.robusta.classify.domain.User;
 import io.robusta.rra.representation.Representation;
 import io.robusta.rra.representation.implementation.GsonRepresentation;
@@ -246,7 +245,7 @@ public class AdController /* Here should extends JaxRsController with all the co
         Ad ad1 = business.find(2L);
         GsonRepresentation rep1 = new GsonRepresentation(ad1.serialize());
 
-        Representation repMerge=rep.merge("titi","toto",rep1);
+        Representation repMerge=rep.merge("titi", "toto", rep1);
         return repMerge.toString();
     }
 
