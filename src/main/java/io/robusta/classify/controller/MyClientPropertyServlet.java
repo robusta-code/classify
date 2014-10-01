@@ -23,18 +23,16 @@
 
 package io.robusta.classify.controller;
 
-import javax.ws.rs.ApplicationPath;
-import javax.ws.rs.core.Application;
+import io.robusta.rra.controller.ClientPropertyServlet;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
- * Nicolas Zozol for Robusta Code 2014
- * 
- * @author Nicolas Zozol
+ * Created by dev on 10/09/14.
  */
-@ApplicationPath( "api" )
-public class ClassifyRestApplication extends Application {
-    /*
-     * public Set<Class<?>> getClasses() { return new HashSet<Class<?>>(
-     * Arrays.asList( JaxRsImpl.class, JaxRsProviderImpl.class ) ); }
-     */
+public class MyClientPropertyServlet extends ClientPropertyServlet {
+
+    public boolean isFF( HttpServletRequest request ) {
+        return false;
+    }
 }

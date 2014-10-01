@@ -18,91 +18,100 @@ import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
-
-
 /**
  * Created by Stephanie Pitou on 15/09/14.
  */
-@Path("/jaxrs")
+@Path( "jaxrs" )
 public class JaxRsImpl extends JaxRsController {
 
-    @Context Response response;
-    @Context Request request;
-    @Context HttpHeaders httpHeader;
-    @Context UriInfo uriInfo;
+    @Context
+    Response    response;
+    @Context
+    Request     request;
+    @Context
+    HttpHeaders httpHeader;
+    @Context
+    UriInfo     uriInfo;
 
-    public boolean isWebKit() {
-        return getUserAgent().get(0).toUpperCase().contains("WEBKIT");
+    public JaxRsImpl() {
+        super();
+        setClientProperty( new MyClientPropertyJaxRs() );
     }
 
     @GET
-    @Path("auth")
-    @Consumes("application/json")
+    @Path( "auth" )
+    @Consumes( "application/json" )
     public Response getAuth() {
         String username = getBasicAuthentification()[0];
         String password = getBasicAuthentification()[1];
 
-        System.out.println("username basic authentification :::: " + username);
-        System.out.println("password basic authentification :::: " + password);
+        System.out.println( "username basic authentification :::: " + username );
+        System.out.println( "password basic authentification :::: " + password );
 
         return getBasicAuthentificationResponse();
     }
 
     @POST
-    @Path("/validate")
-    @Consumes("application/json")
-    public Response validateRepresentation(String requestEntity) {
+    @Path( "/validate" )
+    @Consumes( "application/json" )
+    public Response validateRepresentation( String requestEntity ) {
         // decomment to override the current representation
-        //JaxRsController.defaultRepresentation = new JacksonRepresentation();
-        System.out.println("representation " + getRepresentation(requestEntity));
-        System.out.println("Gson representation " + (JaxRsController.defaultRepresentation instanceof GsonRepresentation));
-        System.out.println("Jackson representation " + (JaxRsController.defaultRepresentation instanceof JacksonRepresentation));
-        System.out.println("validate " + validate(requestEntity, "email", "name"));
+        // JaxRsController.defaultRepresentation = new JacksonRepresentation();
+        System.out.println( "representation " + getRepresentation( requestEntity ) );
+        System.out.println( "Gson representation "
+                + ( JaxRsController.defaultRepresentation instanceof GsonRepresentation ) );
+        System.out.println( "Jackson representation "
+                + ( JaxRsController.defaultRepresentation instanceof JacksonRepresentation ) );
+        System.out.println( "validate " + validate( requestEntity, "email", "name" ) );
 
-        return validateResponse(requestEntity, "email", "name");
+        return validateResponse( requestEntity, "email", "name" );
     }
 
     @POST
-    @Path("/agent")
-    public Response userAgentMethod(String requestEntity) {
-        System.out.println("agent " + getUserAgent());
-        System.out.println("isChrome " + isChrome());
-        System.out.println("isFirefox " + isFirefox());
-        System.out.println("isTablet " + isTablet());
-        System.out.println("isMobile " + isMobile());
-        System.out.println("isWebKit " + isWebKit());
+    @Path( "/agent" )
+    public Response userAgentMethod( String requestEntity ) {
+        System.out.println( "isChrome " + getClientProperty().isChrome( httpHeader ) );
+        System.out.println( "isFirefox " + getClientProperty().isFirefox( httpHeader ) );
+        System.out.println( "isTablet " + getClientProperty().isTablet( httpHeader ) );
+        System.out.println( "isMobile " + getClientProperty().isMobile( httpHeader ) );
+        System.out.println( "isWebKit " + getClientProperty().isWebKit( httpHeader ) );
 
-
-        return Response.status(200).entity(getUserAgent()).build();
+        return Response.status( 200 ).entity( getUserAgent() ).build();
     }
 
     @GET
-    @Path("header")
+    @Path( "header" )
     public Response getHeader() {
         MultivaluedMap<String, String> requestHeaders = getHttpHeader().getRequestHeaders();
         Set<String> requestHeaderSet = requestHeaders.keySet();
-        for (String currentHeader : requestHeaderSet) {
-            System.out.println(currentHeader);
-            System.out.println(requestHeaders.get(currentHeader));
+        for ( String currentHeader : requestHeaderSet ) {
+            System.out.println( currentHeader );
+            System.out.println( requestHeaders.get( currentHeader ) );
         }
 
-        List<String> connection = requestHeaders.get("connection");
-        List<String> authorization = requestHeaders.get("authorization");
-        List<String> userAgent = requestHeaders.get("user-agent");
+        List<String> connection = requestHeaders.get( "connection" );
+        List<String> authorization = requestHeaders.get( "authorization" );
+        List<String> userAgent = requestHeaders.get( "user-agent" );
 
-        System.out.println("connection " + connection);
-        System.out.println("authorization " + authorization);
-        System.out.println("user-agent " + userAgent);
+        System.out.println( "connection " + connection );
+        System.out.println( "authorization " + authorization );
+        System.out.println( "user-agent " + userAgent );
 
-        return Response.status(200).entity("connection :: " + connection + " -- user-agent :: " + userAgent).build();
+        return Response.status( 200 ).entity( "connection :: " + connection + " -- user-agent :: " + userAgent )
+                .build();
     }
 
     @POST
-    @Path("ad")
-    @Consumes("application/json")
-    public GsonRepresentation createAd(GsonRepresentation representation) {
-        System.out.println("created and saved in database ad : " + representation.toString());
+    @Path( "ad" )
+    @Consumes( "application/json" )
+    public GsonRepresentation createAd( GsonRepresentation representation ) {
+        System.out.println( "created and saved in database ad : " + representation.toString() );
         return representation;
-        //return Response.status(201).build();
+        // return Response.status(201).build();
+    }
+
+    @Override
+    public MyClientPropertyJaxRs getClientProperty() {
+        return (MyClientPropertyJaxRs) super.getClientProperty();
     }
 }

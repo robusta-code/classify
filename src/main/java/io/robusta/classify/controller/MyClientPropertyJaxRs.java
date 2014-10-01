@@ -23,16 +23,16 @@
 
 package io.robusta.classify.controller;
 
-import io.robusta.rra.controller.DefaultClientProperty;
+import io.robusta.rra.controller.ClientPropertyJaxRs;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.core.HttpHeaders;
 
 /**
  * Created by dev on 10/09/14.
  */
-public class MyClientProperty extends DefaultClientProperty {
+public class MyClientPropertyJaxRs extends ClientPropertyJaxRs {
 
-    public boolean isFF(HttpServletRequest request) {
-        return false;
+    public boolean isWebKit( HttpHeaders httpHeaders ) {
+        return getAgent( httpHeaders ).toUpperCase().contains( "WEBKIT" );
     }
 }

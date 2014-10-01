@@ -42,7 +42,7 @@ public class ServletTest extends ServletController {
     public void init() throws ServletException {
         super.init();
         // System.out.println("My application starts");
-        setClientProperty( new MyClientProperty() );
+        setClientProperty( new MyClientPropertyServlet() );
         // decomment to override Rra.defaultRepresentation (GsonRepresentation
         // by default)
         // Rra.defaultRepresentation = new JacksonRepresentation();
@@ -70,8 +70,8 @@ public class ServletTest extends ServletController {
     }
 
     @Override
-    public MyClientProperty getClientProperty() {
-        return (MyClientProperty) super.getClientProperty();
+    public MyClientPropertyServlet getClientProperty() {
+        return (MyClientPropertyServlet) super.getClientProperty();
     }
 
 }
