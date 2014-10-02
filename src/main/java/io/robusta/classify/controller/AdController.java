@@ -27,6 +27,7 @@ import io.robusta.classify.business.AdBusiness;
 import io.robusta.classify.business.UserBusiness;
 import io.robusta.classify.domain.Ad;
 import io.robusta.classify.domain.User;
+import io.robusta.rra.controller.JaxRsController;
 import io.robusta.rra.representation.Representation;
 import io.robusta.rra.representation.implementation.GsonRepresentation;
 import io.robusta.rra.representation.implementation.JacksonRepresentation;
@@ -50,209 +51,237 @@ import javax.ws.rs.Produces;
  *
  * @author Nicolas Zozol
  */
-@Path( "ad" )
-@Produces( "application/json" )
-public class AdController {
 
-    AdBusiness   business     = new AdBusiness();
-    UserBusiness userBusiness = new UserBusiness();
+@Path("ad")
+@Produces("application/json")
+public class AdController extends JaxRsController/*
+												 * Here should extends
+												 * JaxRsController with all the
+												 * cool features
+												 */{
 
-    @GET
-    public Collection<Ad> list() {
-        return business.list();
-    }
+	AdBusiness business = new AdBusiness();
+	UserBusiness userBusiness = new UserBusiness();
 
-    @GET
-    @Path( "user/{user}" )
-    public Collection<Ad> listByUser( @PathParam( "user" ) Long userId ) {
+	@GET
+	public Collection<Ad> list() {
+		return business.list();
+	}
 
-        if ( !userBusiness.userExists( userId ) ) {
-            throw new IllegalArgumentException();
-        }
+	@GET
+	@Path("user/{user}")
+	public Collection<Ad> listByUser(@PathParam("user") Long userId) {
 
-        User u = userBusiness.find( userId );
-        return business.list();
-    }
+		if (!userBusiness.userExists(userId)) {
+			throw new IllegalArgumentException();
+		}
 
-    @POST
-    @Path( "test" )
-    @Consumes( "application/json" )
-    public String addAd(  String json ) {
-        GsonRepresentation rep = new GsonRepresentation( json );
+		User u = userBusiness.find(userId);
+		return business.list();
+	}
 
-        return rep.toString();
-    }
+	@POST
+	@Path("test")
+	@Consumes("application/json")
+	public String addAd(String json) {
+		GsonRepresentation rep = new GsonRepresentation(json);
 
-    /*
-     * @POST public void addAd(@FormParam("title") String title,
-     * 
-     * @FormParam("content") String content){ Ad ad = new Ad(45,
-     * userBusiness.find(1L), title, content, 12f, null);
-     * System.out.println(ad); }
-     */
+		return rep.toString();
+	}
 
-    @POST
-    @Path( "add" )
-    public String addAd( @FormParam( "id" ) String id, @FormParam( "title" ) String title,
-            @FormParam( "content" ) String content, @FormParam( "price" ) String price ) {
-        Ad ad = new Ad( Long.valueOf( id ), userBusiness.find( 1L ), title, content, Float.valueOf( price ), null );
-        GsonRepresentation rep = new GsonRepresentation( ad.serialize() );
-        System.out.println( rep.set( "new Champ", "champ" ) );
+	/*
+	 * @POST public void addAd(@FormParam("title") String title,
+	 * 
+	 * @FormParam("content") String content){ Ad ad = new Ad(45,
+	 * userBusiness.find(1L), title, content, 12f, null);
+	 * System.out.println(ad); }
+	 */
 
-        return rep.toString();
-    }
+	@POST
+	@Path("add")
+	public String addAd(@FormParam("id") String id, @FormParam("title") String title,
+			@FormParam("content") String content, @FormParam("price") String price) {
+		Ad ad = new Ad(Long.valueOf(id), userBusiness.find(1L), title, content, Float.valueOf(price), null);
+		GsonRepresentation rep = new GsonRepresentation(ad.serialize());
+		System.out.println(rep.set("new Champ", "champ"));
 
-    @GET
-    @Path( "jack" )
-    public String getJack() {
+		return rep.toString();
+	}
 
-        String user = "{\"email\":\"email\", \"name\":\"name\"}";
-        int i = 3;
-        Hashtable<Integer, String> source = new Hashtable<Integer, String>();
-        HashMap<Integer, String> map = new HashMap( source );
+	@GET
+	@Path("jack")
+	public String getJack() {
 
-        map.put( 21, "Twenty One" );
-        map.put( 22, "Twenty Two" );
-        map.put( 23, "Twenty Threse" );
+		String user = "{\"email\":\"email\", \"name\":\"name\"}";
+		int i = 3;
+		Hashtable<Integer, String> source = new Hashtable<Integer, String>();
+		HashMap<Integer, String> map = new HashMap(source);
 
-        Ad ad = business.find( 1L );
-        Ad ad1 = business.find( 2L );
-        JacksonRepresentation rep = new JacksonRepresentation( ad );
-        JacksonRepresentation rep2 = new JacksonRepresentation( user );
-        JacksonRepresentation rep3 = new JacksonRepresentation( map );
-        JacksonRepresentation rep4 = new JacksonRepresentation();
-        JacksonRepresentation rep5 = new JacksonRepresentation( ad.serialize() );
-        JacksonRepresentation rep6 = new JacksonRepresentation( ad1.serialize() );
-        JacksonRepresentation rep7 = new JacksonRepresentation( i );
-        rep4.createArray();
-        rep4.addToArray( ad );
-        rep4.addToArray( ad1 );
+		map.put(21, "Twenty One");
+		map.put(22, "Twenty Two");
+		map.put(23, "Twenty Threse");
 
-        rep.set( "new Champ", "champ" );
-        // rep.remove("guy");
-        // rep.remove("category.name");
-        // rep.set("toto",ad1);
-        List<String> maList = new ArrayList<String>();
-        maList.add( "titi" );
-        maList.add( "toto" );
-        maList.add( "tata" );
-        rep.set( "maList", maList );
-        rep.add( "maList", "tutu" );
+		Ad ad = business.find(1L);
+		Ad ad1 = business.find(2L);
+		JacksonRepresentation rep = new JacksonRepresentation(ad);
+		JacksonRepresentation rep2 = new JacksonRepresentation(user);
+		JacksonRepresentation rep3 = new JacksonRepresentation(map);
+		JacksonRepresentation rep4 = new JacksonRepresentation();
+		JacksonRepresentation rep5 = new JacksonRepresentation(ad.serialize());
+		JacksonRepresentation rep6 = new JacksonRepresentation(ad1.serialize());
+		JacksonRepresentation rep7 = new JacksonRepresentation(i);
+		rep4.createArray();
+		rep4.addToArray(ad);
+		rep4.addToArray(ad1);
 
-        rep.addAll( "maList", maList );
+		rep.set("new Champ", "champ");
+		// rep.remove("guy");
+		// rep.remove("category.name");
+		// rep.set("toto",ad1);
+		List<String> maList = new ArrayList<String>();
+		maList.add("titi");
+		maList.add("toto");
+		maList.add("tata");
+		rep.set("maList", maList);
+		rep.add("maList", "tutu");
 
-        Representation repMerge = rep5.merge( "titi", "toto", rep6 );
+		rep.addAll("maList", maList);
 
-        // return rep7.get(Integer.class).toString();
+		Representation repMerge = rep5.merge("titi", "toto", rep6);
 
-        // return repMerge.toString();
+		// return rep7.get(Integer.class).toString();
 
-        // return rep.fetch("guy.email").toString();
-        // return rep.copy().toString();
+		// return repMerge.toString();
 
-        return rep.getValues( "maList" ).toString();
-        // return rep.get("content").toString();
-        // return rep.toString();
-        // return rep4.pluck(Ad.class,"title").toString();
-        // return rep2.set("toto",ad1).toString();
-        // return rep4.toString();
-        // return rep5.get(House.class).toString();
-        // return rep.get(Ad.class).toString();
-        // return rep2.get(User.class).toString();
-        // return rep5.toString();
-        /*
-         * if (rep.hasPossiblyEmpty("title")){ return "true"; }else{ return
-         * "false"; }
-         */
+		// return rep.fetch("guy.email").toString();
+		// return rep.copy().toString();
 
-    }
+		return rep.getValues("maList").toString();
+		// return rep.get("content").toString();
+		// return rep.toString();
+		// return rep4.pluck(Ad.class,"title").toString();
+		// return rep2.set("toto",ad1).toString();
+		// return rep4.toString();
+		// return rep5.get(House.class).toString();
+		// return rep.get(Ad.class).toString();
+		// return rep2.get(User.class).toString();
+		// return rep5.toString();
+		/*
+		 * if (rep.hasPossiblyEmpty("title")){ return "true"; }else{ return
+		 * "false"; }
+		 */
 
-    @GET
-    @Path( "gson" )
-    public String getGson() {
+	}
 
-        String user = "{\"email\":\"email\", \"name\":\"name\"}";
-        int i = 3;
-        Hashtable<Integer, String> source = new Hashtable<Integer, String>();
-        HashMap<Integer, String> map = new HashMap( source );
+	@GET
+	@Path("gson")
+	public GsonRepresentation getGson() {
 
-        map.put( 21, "Twenty One" );
-        map.put( 22, "Twenty Two" );
-        map.put( 23, "Twenty Three" );
+		String user = "{\"email\":\"email\", \"name\":\"name\"}";
+		int i = 3;
+		Hashtable<Integer, String> source = new Hashtable<Integer, String>();
+		HashMap<Integer, String> map = new HashMap(source);
 
-        Ad ad = business.find( 1L );
-        Ad ad1 = business.find( 2L );
-        GsonRepresentation rep = new GsonRepresentation( ad );
-        GsonRepresentation rep2 = new GsonRepresentation( user );
-        GsonRepresentation rep3 = new GsonRepresentation( map );
-        GsonRepresentation rep4 = new GsonRepresentation();
-        GsonRepresentation rep5 = new GsonRepresentation( ad.serialize() );
-        GsonRepresentation rep6 = new GsonRepresentation( ad1.serialize() );
-        GsonRepresentation rep7 = new GsonRepresentation( i );
+		map.put(21, "Twenty One");
+		map.put(22, "Twenty Two");
+		map.put(23, "Twenty Three");
 
-        rep4.createArray();
-        rep4.addToArray( ad );
-        rep4.addToArray( ad1 );
+		Ad ad = business.find(1L);
+		Ad ad1 = business.find(2L);
+		GsonRepresentation rep = new GsonRepresentation(ad);
+		GsonRepresentation rep2 = new GsonRepresentation(user);
+		GsonRepresentation rep3 = new GsonRepresentation(map);
+		GsonRepresentation rep4 = new GsonRepresentation();
+		GsonRepresentation rep5 = new GsonRepresentation(ad.serialize());
+		GsonRepresentation rep6 = new GsonRepresentation(ad1.serialize());
+		GsonRepresentation rep7 = new GsonRepresentation(i);
 
-        rep.set( "new Champ", "champ" );
-        // rep.remove("guy");
-        // rep.remove("category.name");
-        // rep.add("toto",ad1);
-        List<String> maList = new ArrayList<String>();
-        maList.add( "titi" );
-        maList.add( "toto" );
-        maList.add( "tata" );
-        rep.set( "maList", maList );
-        rep.add( "maList", "tutu" );
+		rep4.createArray();
+		rep4.addToArray(ad);
+		rep4.addToArray(ad1);
 
-        rep.addAll( "maList", maList );
-        // return rep.get("content").toString();
+		rep.set("new Champ", "champ");
+		// rep.remove("guy");
+		// rep.remove("category.name");
+		// rep.add("toto",ad1);
+		List<String> maList = new ArrayList<String>();
+		// TODO : use correct values : New York, London....
+		maList.add("New York");
+		maList.add("London");
+		maList.add("Toronto");
+		rep.set("maList", maList);
+		rep.add("maList", "Mumbai");
 
-        Representation repMerge = rep5.merge( "titi", "toto", rep6 );
+		rep.addAll("maList", maList);
+		// return rep.get("content").toString();
 
-        // return rep7.get(Integer.class).toString();
-        // return rep.getValues( "maList" ).toString();
-        // return repMerge.toString();
-        // return rep.fetch("guy.email").toString();
-        // return rep.copy().toString();
-        // return rep.toString();
-        return rep2.toString();
-        // return rep4.get(Integer.class).toString();
-        // return rep.get(Ad.class).toString();
-        // return rep4.pluck(Ad.class,"title").toString();
-        // return rep4.toString();
-        /*
-         * if (rep.hasPossiblyEmpty("title")){ return "true"; }else{ return
-         * "false"; }
-         */
+		Representation repMerge = rep5.merge("New York", "London", rep6);
 
-    }
+		// return rep7.get(Integer.class).toString();
+		System.out.println(rep);
+		return rep;
+		// return repMerge.toString();
+		// return rep.fetch("guy.email").toString();
+		// return rep.copy().toString();
+		// return rep.toString();
+		// return rep2.toString();
+		// return rep4.get(Integer.class).toString();
+		// return rep.get(Ad.class).toString();
+		// return rep4.pluck(Ad.class,"title").toString();
+		// return rep4.toString();
+		/*
+		 * if (rep.hasPossiblyEmpty("title")){ return "true"; }else{ return
+		 * "false"; }
+		 */
+	}
 
-    @GET
-    @Path( "{id}" )
-    public String findById( @PathParam( "id" ) Long id ) {
-        // We should just make :`return new
-        // GsonRepresentation(business.find(id));`
-        Ad ad = business.find( id );
-        GsonRepresentation rep = new GsonRepresentation( ad.serialize() );
-        // rep.remove("guy");
-        return rep.toString();
-    }
+	/**
+	 * The method read the rep that contains a "email" field, and removes it,
+	 * returns it
+	 * 
+	 * @param rep
+	 * @return
+	 */
+	@POST
+	@Path("gson")
+	public GsonRepresentation readGson(GsonRepresentation rep) {
+		String key = "email";
+		validateResponse(rep.toString(), key);
+		System.out.println("representation before : " + rep);
+		System.out.println(rep.has(key));
+		if (rep.has(key)) {
+			rep.remove(key);
+		}
+		System.out.println("representation before return : " + rep);
+		return rep;
 
-    @GET
-    @Path( "merge/{id}" )
-    public String merge( @PathParam( "id" ) Long id ) {
-        // We should just make :`return new
-        // GsonRepresentation(business.find(id));`
-        Ad ad = business.find( id );
-        GsonRepresentation rep = new GsonRepresentation( ad.serialize() );
-        // rep.remove("guy");
+	}
 
-        Ad ad1 = business.find( 2L );
-        GsonRepresentation rep1 = new GsonRepresentation( ad1.serialize() );
+	@GET
+	@Path("{id}")
+	public String findById(@PathParam("id") Long id) {
+		// We should just make :`return new
+		// GsonRepresentation(business.find(id));`
+		Ad ad = business.find(id);
+		GsonRepresentation rep = new GsonRepresentation(ad.serialize());
+		// rep.remove("guy");
+		return rep.toString();
+	}
 
-        Representation repMerge = rep.merge( "titi", "toto", rep1 );
-        return repMerge.toString();
-    }
+	@GET
+	@Path("merge/{id}")
+	public String merge(@PathParam("id") Long id) {
+		// We should just make :`return new
+		// GsonRepresentation(business.find(id));`
+		Ad ad = business.find(id);
+		GsonRepresentation rep = new GsonRepresentation(ad.serialize());
+		// rep.remove("guy");
+
+		Ad ad1 = business.find(2L);
+		GsonRepresentation rep1 = new GsonRepresentation(ad1.serialize());
+
+		Representation repMerge = rep.merge("titi", "toto", rep1);
+		return repMerge.toString();
+	}
 
 }

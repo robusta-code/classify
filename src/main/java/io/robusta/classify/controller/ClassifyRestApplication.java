@@ -31,10 +31,9 @@ import javax.ws.rs.core.Application;
  * 
  * @author Nicolas Zozol
  */
-@ApplicationPath( "api" )
-public class ClassifyRestApplication extends Application {
-    /*
-     * public Set<Class<?>> getClasses() { return new HashSet<Class<?>>(
-     * Arrays.asList( JaxRsImpl.class, JaxRsProviderImpl.class ) ); }
-     */
+@ApplicationPath("api")
+public class ClassifyRestApplication extends Application{
+//	 public Set<Class<?>> getClasses() {
+//	        return new HashSet<Class<?>>(Arrays.asList(JaxRsImpl.class, JaxRsProviderImpl.class, AdController.class));
+//	    }
 }
