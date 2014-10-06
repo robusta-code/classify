@@ -29,14 +29,25 @@ import java.util.Map;
 
 /**
  * Nicolas Zozol for Robusta Code 2014
+ * 
  * @author Nicolas Zozol
  */
-public class User implements Resource<Long>{
+public class User implements Resource<Long> {
 
-
-    Long id;
+    Long   id;
     String email;
     String name;
+
+    public User() {
+        super();
+    }
+
+    public User( Long id, String email, String name ) {
+        super();
+        this.id = id;
+        this.email = email;
+        this.name = name;
+    }
 
     @Override
     public Long getId() {
@@ -58,12 +69,11 @@ public class User implements Resource<Long>{
         return null;
     }
 
-
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail( String email ) {
         this.email = email;
     }
 
@@ -71,7 +81,7 @@ public class User implements Resource<Long>{
         return name;
     }
 
-    public void setName(String name) {
+    public void setName( String name ) {
         this.name = name;
     }
 

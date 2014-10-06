@@ -25,20 +25,26 @@ package io.robusta.classify.domain;
 
 import io.robusta.rra.resource.Resource;
 
-import java.util.*;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Nicolas Zozol for Robusta Code 2014
+ * 
  * @author Nicolas Zozol
  */
-public class Category implements Resource<Long>, Comparable<Category>{
+public class Category implements Resource<Long>, Comparable<Category> {
 
-    long id;
-    String name;
+    long              id;
+    String            name;
     TreeSet<Category> children;
 
+    public Category() {
+        super();
+    }
 
-    public Category(long id, String name) {
+    public Category( long id, String name ) {
         this.id = id;
         this.name = name;
     }
@@ -62,7 +68,7 @@ public class Category implements Resource<Long>, Comparable<Category>{
         return null;
     }
 
-    public void setId(long id) {
+    public void setId( long id ) {
         this.id = id;
     }
 
@@ -70,7 +76,7 @@ public class Category implements Resource<Long>, Comparable<Category>{
         return name;
     }
 
-    public void setName(String name) {
+    public void setName( String name ) {
         this.name = name;
     }
 
@@ -78,18 +84,18 @@ public class Category implements Resource<Long>, Comparable<Category>{
         return children;
     }
 
-    public void addChildren(Category ...categories){
-        if (this.children==null){
+    public void addChildren( Category... categories ) {
+        if ( this.children == null ) {
             this.children = new TreeSet<Category>();
         }
-        for (Category c : categories){
-            this.children.add(c);
+        for ( Category c : categories ) {
+            this.children.add( c );
         }
     }
 
     @Override
-    public int compareTo(Category category) {
-        return this.toString().compareTo(category.toString());
+    public int compareTo( Category category ) {
+        return this.toString().compareTo( category.toString() );
     }
 
     @Override

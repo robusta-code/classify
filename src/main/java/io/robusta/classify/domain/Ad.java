@@ -31,27 +31,26 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 
-
-
 /**
  * Nicolas Zozol for Robusta Code 2014
+ * 
  * @author Nicolas Zozol
  */
-public class Ad implements Resource<Long> , Comparable<Ad>{
+public class Ad implements Resource<Long>, Comparable<Ad> {
 
-    long id;
-    User guy;
-    String title;
-    String content;
-    float price;
+    long            id;
+    User            guy;
+    String          title;
+    String          content;
+    float           price;
 
-    Category category;
+    Category        category;
     Collection<Tag> tags = new ArrayList<Tag>();
 
     public Ad() {
     }
 
-    public Ad(long id, User guy, String title, String content, float price, Category category) {
+    public Ad( long id, User guy, String title, String content, float price, Category category ) {
         this.id = id;
         this.guy = guy;
         this.title = title;
@@ -59,7 +58,6 @@ public class Ad implements Resource<Long> , Comparable<Ad>{
         this.price = price;
         this.category = category;
     }
-
 
     @Override
     public Long getId() {
@@ -73,7 +71,7 @@ public class Ad implements Resource<Long> , Comparable<Ad>{
 
     @Override
     public Map<String, Object> serialize() {
-        return ResourceSerializer.serialize(this);
+        return ResourceSerializer.serialize( this );
     }
 
     @Override
@@ -81,8 +79,7 @@ public class Ad implements Resource<Long> , Comparable<Ad>{
         return "ads";
     }
 
-
-    public void setId(long id) {
+    public void setId( long id ) {
         this.id = id;
     }
 
@@ -90,7 +87,7 @@ public class Ad implements Resource<Long> , Comparable<Ad>{
         return title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle( String title ) {
         this.title = title;
     }
 
@@ -98,20 +95,19 @@ public class Ad implements Resource<Long> , Comparable<Ad>{
         return content;
     }
 
-    public void setContent(String content) {
+    public void setContent( String content ) {
         this.content = content;
     }
 
-    public void addTags(Tag... tags){
-        Collections.addAll(this.tags, tags);
+    public void addTags( Tag... tags ) {
+        Collections.addAll( this.tags, tags );
     }
-
 
     public float getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice( float price ) {
         this.price = price;
     }
 
@@ -129,11 +125,12 @@ public class Ad implements Resource<Long> , Comparable<Ad>{
 
     @Override
     public String toString() {
-        return this.title+":"+this.content;
+        return "Ad [id=" + id + ", guy=" + guy + ", title=" + title + ", content=" + content + ", price=" + price
+                + ", category=" + category + ", tags=" + tags + "]";
     }
 
     @Override
-    public int compareTo(Ad ad) {
-        return ((Float)this.price).compareTo(ad.getPrice());
+    public int compareTo( Ad ad ) {
+        return ( (Float) this.price ).compareTo( ad.getPrice() );
     }
 }

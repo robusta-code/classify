@@ -25,19 +25,33 @@ package io.robusta.classify.business;
 
 import io.robusta.classify.ClassifyDataSource;
 import io.robusta.classify.domain.User;
+import io.robusta.rra.resource.ResourceList;
+
+import java.util.Collection;
 
 /**
  * Nicolas Zozol for Robusta Code 2014
+ * 
  * @author Nicolas Zozol
  */
 public class UserBusiness {
     ClassifyDataSource ds = ClassifyDataSource.getInstance();
 
-    public boolean userExists(long id){
-        return ds.getUsers().containsById(id);
+    public boolean userExists( long id ) {
+        return ds.getUsers().containsById( id );
     }
 
-    public User find(Long id) {
-        return ds.getUsers().getById(id);
+    public User find( Long id ) {
+        return ds.getUsers().getById( id );
+    }
+
+    public Collection<User> list() {
+        return ds.getUsers();
+    }
+
+    public User set( User user ) {
+        ResourceList<Long, User> users = ds.getUsers();
+        users.replace( user.getId(), user );
+        return user;
     }
 }

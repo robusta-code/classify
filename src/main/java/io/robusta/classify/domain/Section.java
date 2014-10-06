@@ -25,19 +25,27 @@ package io.robusta.classify.domain;
 
 import io.robusta.rra.resource.Resource;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Nicolas Zozol for Robusta Code 2014
+ * 
  * @author Nicolas Zozol
  */
-public class Section implements Resource<String>{
+public class Section implements Resource<String> {
 
-    String name;
+    String        name;
     Set<Category> categories = new TreeSet<Category>();
 
-    public Section(String name) {
-        this.name=name;
+    public Section() {
+        super();
+    }
+
+    public Section( String name ) {
+        this.name = name;
     }
 
     @Override
@@ -64,7 +72,7 @@ public class Section implements Resource<String>{
         return name;
     }
 
-    public void setName(String name) {
+    public void setName( String name ) {
         this.name = name;
     }
 
@@ -72,9 +80,7 @@ public class Section implements Resource<String>{
         return categories;
     }
 
-
-
-    public void addCategories(Category... categories){
-        Collections.addAll(this.categories, categories);
+    public void addCategories( Category... categories ) {
+        Collections.addAll( this.categories, categories );
     }
 }

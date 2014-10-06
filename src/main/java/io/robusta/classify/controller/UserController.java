@@ -23,9 +23,8 @@
 
 package io.robusta.classify.controller;
 
-import io.robusta.classify.business.AdBusiness;
 import io.robusta.classify.business.UserBusiness;
-import io.robusta.classify.domain.Ad;
+import io.robusta.classify.domain.User;
 import io.robusta.rra.controller.JaxRsController;
 import io.robusta.rra.representation.implementation.GsonRepresentation;
 import io.robusta.rra.representation.implementation.JacksonRepresentation;
@@ -34,7 +33,9 @@ import java.util.Collection;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -45,27 +46,51 @@ import javax.ws.rs.Produces;
  *
  * @author Nicolas Zozol
  */
-
-@Path( "ad" )
+@Path( "user" )
 @Produces( "application/json" )
-public class AdController extends JaxRsController {
+public class UserController extends JaxRsController {
 
-    AdBusiness   adBusiness   = new AdBusiness();
     UserBusiness userBusiness = new UserBusiness();
 
     @GET
-    public Collection<Ad> list() {
-        return adBusiness.list();
+    public Collection<User> list() {
+        return userBusiness.list();
     }
 
     @GET
-    @Path( "{ad}" )
-    public String listByAd( @PathParam( "ad" ) Long adId ) {
+    @Path( "{user}" )
+    public String listByUser( @PathParam( "user" ) Long userId ) {
 
-        Ad ad = adBusiness.find( adId );
-        GsonRepresentation rep = new GsonRepresentation( ad );
-        // JacksonRepresentation rep = new JacksonRepresentation( ad );
+        if ( !userBusiness.userExists( userId ) ) {
+            throw new IllegalArgumentException();
+        }
+        User u = userBusiness.find( userId );
+        GsonRepresentation rep = new GsonRepresentation( u );
+        // JacksonRepresentation rep = new JacksonRepresentation( u );
+        rep.remove( "email" );
         return rep.toString();
+    }
+
+    @POST
+    @Path( "createJson" )
+    @Consumes( "application/json" )
+    public String createUserJson( String json ) {
+        GsonRepresentation rep = new GsonRepresentation( json );
+        User user = rep.get( User.class );
+        return user.toString();
+    }
+
+    @POST
+    @Path( "createForm" )
+    @Consumes( "application/x-www-form-urlencoded" )
+    public String createUserForm( @FormParam( "id" ) Long id, @FormParam( "name" ) String name,
+            @FormParam( "email" ) String email ) {
+        User newUSer = new User( id, name, email );
+        System.out.println( id );
+        GsonRepresentation rep = new GsonRepresentation( newUSer );
+
+        return rep.toString();
+
     }
 
     @PUT
@@ -74,20 +99,21 @@ public class AdController extends JaxRsController {
     public String addAd( String json ) {
         // GsonRepresentation rep = new GsonRepresentation( json );
         JacksonRepresentation rep = new JacksonRepresentation( json );
-        Ad ad = rep.get( Ad.class );
-        // adBusiness.set( ad );
+        User user = rep.get( User.class );
+        userBusiness.set( user );
         rep.set( "new champ", "champ" );
         return rep.toString();
-        // return ad.toString();
     }
 
     @DELETE
-    @Path( "delete/{ad}" )
-    public String deleteAd( @PathParam( "ad" ) Long adId ) {
+    @Path( "delete/{user}" )
+    public String deleteUser( @PathParam( "user" ) Long userId ) {
 
-        Ad ad = adBusiness.find( adId );
-        GsonRepresentation rep = new GsonRepresentation( ad );
-        // JacksonRepresentation rep = new JacksonRepresentation( ad );
+        if ( !userBusiness.userExists( userId ) ) {
+            throw new IllegalArgumentException();
+        }
+        User u = userBusiness.find( userId );
+        GsonRepresentation rep = new GsonRepresentation( u );
         return rep.toString();
     }
 

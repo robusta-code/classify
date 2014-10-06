@@ -36,7 +36,7 @@ import javax.servlet.http.HttpServletResponse;
  * Created by dev on 09/09/14.
  */
 @WebServlet( "/test" )
-public class ServletTest extends ServletController {
+public class ServletSandbox extends ServletController {
 
     @Override
     public void init() throws ServletException {
@@ -57,7 +57,7 @@ public class ServletTest extends ServletController {
             System.out.println( "Password " + userPassword[1].toString() );
         }
         System.out.println( "getRepresentation " + getRepresentation( request ) );
-        System.out.println( "validate " + validate( request, response, "name", "email" ) );
+        System.out.println( "validate " + validate( request, response, "ndame", "email" ) );
         System.out.println( "isChrome()" + getClientProperty().isChrome( request ) );
         System.out.println( "isFF()" + getClientProperty().isFF( request ) );
         response.getWriter().println( getRepresentation( request ) );

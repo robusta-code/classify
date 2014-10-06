@@ -29,14 +29,19 @@ import java.util.Map;
 
 /**
  * Nicolas Zozol for Robusta Code 2014
+ * 
  * @author Nicolas Zozol
  */
-public class Tag implements Resource<Long>{
+public class Tag implements Resource<Long> {
 
-    long id;
+    long   id;
     String name;
 
-    public Tag(long id, String name) {
+    public Tag() {
+        super();
+    }
+
+    public Tag( long id, String name ) {
         this.id = id;
         this.name = name;
     }
@@ -61,12 +66,11 @@ public class Tag implements Resource<Long>{
         return null;
     }
 
-
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName( String name ) {
         this.name = name;
     }
 }

@@ -25,22 +25,32 @@ package io.robusta.classify.domain;
 
 /**
  * Nicolas Zozol for Robusta Code 2014
+ * 
  * @author Nicolas Zozol
  */
 public class Admin extends User {
 
     String statement;
 
-    public Admin(String statement) {
-        this.statement = statement;
+    public Admin() {
+        super();
     }
 
+    public Admin( Long id, String email, String name, String statement ) {
+        super( id, email, name );
+        this.statement = statement;
+    }
 
     public String getStatement() {
         return statement;
     }
 
-    public void setStatement(String statement) {
+    public void setStatement( String statement ) {
         this.statement = statement;
+    }
+
+    @Override
+    public String toString() {
+        return "Admin [statement=" + statement + ", id=" + id + ", email=" + email + ", name=" + name + "]";
     }
 }
