@@ -42,7 +42,9 @@ public class UserBusiness {
     }
 
     public User find( Long id ) {
+
         return ds.getUsers().getById( id );
+        // return ds.getUsers().getById( id );
     }
 
     public Collection<User> list() {
@@ -54,4 +56,17 @@ public class UserBusiness {
         users.replace( user.getId(), user );
         return user;
     }
+
+    public User add( User user ) {
+        ResourceList<Long, User> users = ds.getUsers();
+        users.add( user );
+        return user;
+    }
+
+    public User delete( User user ) {
+        ResourceList<Long, User> users = ds.getUsers();
+        users.remove( user );
+        return user;
+    }
+
 }

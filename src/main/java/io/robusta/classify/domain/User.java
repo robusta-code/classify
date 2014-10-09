@@ -34,9 +34,10 @@ import java.util.Map;
  */
 public class User implements Resource<Long> {
 
-    Long   id;
-    String email;
-    String name;
+    Long    id;
+    String  email;
+    String  name;
+    Address address;
 
     public User() {
         super();
@@ -56,7 +57,7 @@ public class User implements Resource<Long> {
 
     @Override
     public String getPrefix() {
-        return "guy";
+        return "user";
     }
 
     @Override
@@ -85,12 +86,17 @@ public class User implements Resource<Long> {
         this.name = name;
     }
 
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress( Address address ) {
+        this.address = address;
+    }
+
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", email='" + email + '\'' +
-                ", name='" + name + '\'' +
-                '}';
+        return "User [id=" + id + ", email=" + email + ", name=" + name + ", address=" + address + "]";
     }
+
 }

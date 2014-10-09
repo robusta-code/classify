@@ -53,7 +53,7 @@
         <dependency>
             <groupId>io.robusta</groupId>
             <artifactId>rra</artifactId>
-            <version>0.1.0-SNAPSHOT</version>
+            <version>0.2-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.google.code.gson</groupId>
@@ -102,11 +102,7 @@
             <version>2.0.1</version>
             <scope>provided</scope>
         </dependency>  -->
-        <dependency>
-            <groupId>io.robusta</groupId>
-            <artifactId>rra</artifactId>
-            <version>0.1.0-SNAPSHOT</version>
-        </dependency>
+
 
     </dependencies>
     <build>

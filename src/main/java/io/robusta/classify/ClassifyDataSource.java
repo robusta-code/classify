@@ -1,6 +1,7 @@
 package io.robusta.classify;
 
 import io.robusta.classify.domain.Ad;
+import io.robusta.classify.domain.Address;
 import io.robusta.classify.domain.Admin;
 import io.robusta.classify.domain.Category;
 import io.robusta.classify.domain.Section;
@@ -21,6 +22,7 @@ public class ClassifyDataSource {
     private static ClassifyDataSource instance;
 
     private ClassifyDataSource() {
+        initAddresses();
         initUsers();
         initSectionsAndCategorie();
         initTags();
@@ -34,11 +36,20 @@ public class ClassifyDataSource {
         return instance;
     }
 
-    ResourceList<Long, User> users      = new ResourceList<Long, User>();
-    List<Section>            sections   = new ArrayList<Section>();
-    List<Category>           categories = new ArrayList<Category>();
-    ResourceList<Long, Tag>  tags       = new ResourceList<Long, Tag>();
-    List<Ad>                 ads        = new ArrayList<Ad>();
+    ResourceList<Long, User>    users      = new ResourceList<Long, User>();
+    List<Section>               sections   = new ArrayList<Section>();
+    List<Category>              categories = new ArrayList<Category>();
+    ResourceList<Long, Tag>     tags       = new ResourceList<Long, Tag>();
+    ResourceList<Long, Ad>      ads        = new ResourceList<Long, Ad>();
+    ResourceList<Long, Address> addresses  = new ResourceList<Long, Address>();
+
+    public ResourceList<Long, Address> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses( ResourceList<Long, Address> addresses ) {
+        this.addresses = addresses;
+    }
 
     public ResourceList<Long, User> getUsers() {
         return this.users;
@@ -60,14 +71,16 @@ public class ClassifyDataSource {
         return tags;
     }
 
-    public List<Ad> getAds() {
+    public ResourceList<Long, Ad> getAds() {
         return ads;
     }
 
     private void initUsers() {
         User nicolas = new Admin( 1L, "nz@robusta.io", "Nicolas", "Star Wars rocks !" );
+        nicolas.setAddress( this.getAddresses().getById( 1L ) );
         User leonard = new Admin( 2L, "leonard@robusta.io", "Leonard", "Star Trek rocks" );
         User sheldon = new User( 3L, "sheldon@robusta.io", "Sheldon" );
+        sheldon.setAddress( this.getAddresses().getById( 1L ) );
         User raj = new User( 4L, "raj@robusta.io", "Raj" );
         User howard = new User( 5L, "howard@robusta.io", "Howard" );
         User penny = new User( 6L, "penny@robusta.io", "Penny" );
@@ -141,6 +154,14 @@ public class ClassifyDataSource {
         Tag old = new Tag( 1, "old" );
         Tag lennon = new Tag( 2, "John Lennon" );
         Collections.addAll( this.tags, old, lennon );
+
+    }
+
+    private void initAddresses() {
+
+        Address address1 = new Address( 1L, "field1", "field2", "31000", "Toulouse", "France" );
+        Address address2 = new Address( 2L, "field1", "", "81000", "Albi", "France" );
+        Collections.addAll( this.addresses, address1, address2 );
 
     }
 

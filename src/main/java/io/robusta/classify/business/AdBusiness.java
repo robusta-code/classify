@@ -27,10 +27,10 @@ import io.robusta.classify.ClassifyDataSource;
 import io.robusta.classify.domain.Ad;
 import io.robusta.classify.domain.User;
 import io.robusta.rra.resource.ResourceCollectionWrapper;
+import io.robusta.rra.resource.ResourceList;
 
 import java.util.ArrayList;
 import java.util.Collection;
-
 
 /**
  * Nicolas Zozol for Robusta Code 2014
@@ -43,6 +43,10 @@ public class AdBusiness {
 
     public Collection<Ad> list() {
         return ds.getAds();
+    }
+
+    public boolean adExists( long id ) {
+        return ds.getAds().containsById( id );
     }
 
     public Collection<Ad> list( User user ) {
@@ -64,6 +68,24 @@ public class AdBusiness {
         ResourceCollectionWrapper<Long, Ad> wrapper = new ResourceCollectionWrapper( ds.getAds() );
         return wrapper.getById( id );
 
+    }
+
+    public Ad set( Ad ad ) {
+        ResourceList<Long, Ad> ads = ds.getAds();
+        ads.replace( ad.getId(), ad );
+        return ad;
+    }
+
+    public Ad add( Ad ad ) {
+        ResourceList<Long, Ad> ads = ds.getAds();
+        ads.add( ad );
+        return ad;
+    }
+
+    public Ad delete( Ad ad ) {
+        ResourceList<Long, Ad> ads = ds.getAds();
+        ads.remove( ad );
+        return ad;
     }
 
 }
