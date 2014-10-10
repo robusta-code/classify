@@ -71,7 +71,7 @@ public class SpringSandbox extends SpringController {
             System.out.println( "Password=" + userPassword[1].toString() );
         }
         System.out.println( "getRepresentation=" + getRepresentation( request ) );
-        System.out.println( "validate=" + validate( request, response, "namse", "emsail" ) );
+        System.out.println( "validate=" + validate( request, response, "name", "email" ) );
         System.out.println( "isChrome()=" + getClientProperty().isChrome( request ) );
         System.out.println( "isFF()=" + getClientProperty().isFF( request ) );
 

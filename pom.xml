@@ -1,124 +1,117 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>io.robusta</groupId>
-    <artifactId>classify</artifactId>
-    <packaging>war</packaging>
-    <version>0.1-SNAPSHOT</version>
-    <name>classify Maven Webapp</name>
-    <url>http://maven.apache.org</url>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>io.robusta</groupId>
+	<artifactId>classify</artifactId>
+	<packaging>war</packaging>
+	<version>0.1-SNAPSHOT</version>
+	<name>classify Maven Webapp</name>
+	<url>http://maven.apache.org</url>
 
 
-    <!--
-        <repositories>
-            <repository>
-                <id>JBoss Repository</id>
-                <url>https://repository.jboss.org/nexus/content/repositories/releases/</url>
-            </repository>
-        </repositories>
--->
+	<!-- <repositories> <repository> <id>JBoss Repository</id> <url>https://repository.jboss.org/nexus/content/repositories/releases/</url> 
+		</repository> </repositories> -->
 
-    <properties>
-        <java-version>1.6</java-version>
-        <org.springframework-version>3.1.1.RELEASE</org.springframework-version>
-        <org.aspectj-version>1.6.10</org.aspectj-version>
-        <org.slf4j-version>1.6.6</org.slf4j-version>
-    </properties>
+	<properties>
+		<java-version>1.6</java-version>
+		<org.springframework-version>3.1.1.RELEASE</org.springframework-version>
+		<org.aspectj-version>1.6.10</org.aspectj-version>
+		<org.slf4j-version>1.6.6</org.slf4j-version>
+	</properties>
 
-    <dependencies>
+	<dependencies>
 
-        <!-- http://stackoverflow.com/questions/22338317/ -->
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
+			<version>2.2.2</version>
+		</dependency>
 
-        <!--
-                <dependency>
-                    <groupId>org.wildfly.bom</groupId>
-                    <artifactId>jboss-javaee-7.0-with-tools</artifactId>
-                    <version>8.1.0.Final</version>
-                    <type>pom</type>
-                    <scope>provided</scope>
-                </dependency>
--->
+		<!-- http://stackoverflow.com/questions/22338317/ -->
 
-        <!-- It's not a jar to download ! -->
+		<!-- <dependency> <groupId>org.wildfly.bom</groupId> <artifactId>jboss-javaee-7.0-with-tools</artifactId> 
+			<version>8.1.0.Final</version> <type>pom</type> <scope>provided</scope> </dependency> -->
 
-        <dependency>
-            <groupId>org.jboss.spec</groupId>
-            <artifactId>jboss-javaee-web-7.0</artifactId>
-            <version>1.0.1.Final</version>
+		<!-- It's not a jar to download ! -->
 
-            <type>pom</type>
-            <scope>provided</scope>
-        </dependency>
+		<dependency>
+			<groupId>org.jboss.spec</groupId>
+			<artifactId>jboss-javaee-web-7.0</artifactId>
+			<version>1.0.1.Final</version>
 
-        <dependency>
-            <groupId>io.robusta</groupId>
-            <artifactId>rra</artifactId>
-            <version>0.2-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>2.2.4</version>
-        </dependency>
-        <dependency>
-            <groupId>com.thoughtworks.xstream</groupId>
-            <artifactId>xstream</artifactId>
-            <version>1.4.7</version>
-        </dependency>
-        <dependency>
-            <groupId>org.codehaus.jettison</groupId>
-            <artifactId>jettison</artifactId>
-            <version>1.3.5</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.3.3</version>
-        </dependency>
+			<type>pom</type>
+			<scope>provided</scope>
+		</dependency>
 
-        <!-- Spring -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>${org.springframework-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-            <version>${org.springframework-version}</version>
-        </dependency>
+		<dependency>
+			<groupId>io.robusta</groupId>
+			<artifactId>rra</artifactId>
+			<version>0.1.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.2.4</version>
+		</dependency>
+		<dependency>
+			<groupId>com.thoughtworks.xstream</groupId>
+			<artifactId>xstream</artifactId>
+			<version>1.4.7</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jettison</groupId>
+			<artifactId>jettison</artifactId>
+			<version>1.3.5</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.3.3</version>
+		</dependency>
 
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.11</version>
-            <scope>test</scope>
-        </dependency>
+		<!-- Spring -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
 
-        <!-- reference implementation for JAX-RS
-         <dependency>
-            <groupId>javax.ws.rs</groupId>
-            <artifactId>javax.ws.rs-api</artifactId>
-            <version>2.0.1</version>
-            <scope>provided</scope>
-        </dependency>  -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+			<scope>test</scope>
+		</dependency>
 
+		<!-- reference implementation for JAX-RS <dependency> <groupId>javax.ws.rs</groupId> 
+			<artifactId>javax.ws.rs-api</artifactId> <version>2.0.1</version> <scope>provided</scope> 
+			</dependency> -->
+		<dependency>
+			<groupId>io.robusta</groupId>
+			<artifactId>rra</artifactId>
+			<version>0.1</version>
+		</dependency>
 
-    </dependencies>
-    <build>
+	</dependencies>
+	<build>
 
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
-                <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
-                </configuration>
-            </plugin>
-        </plugins>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+		</plugins>
 
-        <finalName>classify</finalName>
-    </build>
+		<finalName>classify</finalName>
+	</build>
 </project>
