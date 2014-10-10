@@ -26,11 +26,9 @@ package io.robusta.classify.controller;
 import io.robusta.classify.business.AdBusiness;
 import io.robusta.classify.business.UserBusiness;
 import io.robusta.classify.domain.Ad;
-import io.robusta.rra.cache.Cache;
 import io.robusta.rra.controller.JaxRsController;
 import io.robusta.rra.representation.Representation;
 import io.robusta.rra.representation.implementation.GsonRepresentation;
-import io.robusta.rra.resource.Resource;
 
 import java.util.List;
 
@@ -48,93 +46,59 @@ import javax.ws.rs.PathParam;
  * @author Nicolas Zozol
  */
 
-@Path( "ad" )
+@Path("ad")
 // @Produces( "application/json" )
 public class AdController extends JaxRsController {
 
-    AdBusiness   adBusiness   = new AdBusiness();
-    UserBusiness userBusiness = new UserBusiness();
+	AdBusiness adBusiness = new AdBusiness();
+	UserBusiness userBusiness = new UserBusiness();
 
-    @GET
-    public String list() {
-        Representation representation;
-        // representation = Cache.getInstance().get( "ads" );
-        // System.out.println( Cache.getInstance().getAll() );
-        // if ( representation != null ) {
-        // return representation.toString();
-        // } else {
-        // List<Ad> ads = (List<Ad>) adBusiness.list();
-        // representation = new GsonRepresentation( ads );
-        // Cache.getInstance().put( "ads", representation );
-        // return representation.toString();
-        // }
-        List<Ad> ads = (List<Ad>) adBusiness.list();
-        representation = new GsonRepresentation( ads );
-        return representation.toString();
-    }
+	@GET
+	public String list() {
+		Representation representation;
+		List<Ad> ads = (List<Ad>) adBusiness.list();
+		representation = new GsonRepresentation(ads);
+		return representation.toString();
+	}
 
-    @GET
-    @Path( "{ad}" )
-    public String listByAd( @PathParam( "ad" ) Long adId ) {
+	@GET
+	@Path("{ad}")
+	public String listByAd(@PathParam("ad") Long adId) {
+		Ad ad = adBusiness.find(adId);
+		Representation representation = new GsonRepresentation(ad);
 
-        Resource resource = Cache.getInstance().get( "ad" + adId );
-        if ( resource == null ) {
-            resource = adBusiness.find( adId );
-            Cache.getInstance().put( resource );
-        }
-        Cache.getInstance().displayCache();
+		return representation.toString();
 
-        Representation representation = new GsonRepresentation( resource );
+	}
 
-        // nicolas delire
+	@POST
+	@Path("create")
+	@Consumes("application/json")
+	public String createAdJson(String json) {
+		GsonRepresentation rep = new GsonRepresentation(json);
+		Ad ad = rep.get(Ad.class);
+		adBusiness.add(ad);
+		return rep.toString();
+	}
 
-        // String url = "/ad";
-        // Representation rep = Cache.getRepCache().get("/ad");
-        //
-        // if(rep == null){
-        // Representation rep = new GsonRepresentation( resource );
-        // rep.set( "more", "data");
-        // Cache.getRepCache().put("/ad",rep, resource, resource2);
-        // }
-        // return rep;
-        // Cache.getRepCache().put("/ad",representation, resource, resource2);
-        return representation.toString();
+	@PUT
+	@Path("update")
+	@Consumes("application/json")
+	public String addAd(String json) {
+		GsonRepresentation rep = new GsonRepresentation(json);
+		Ad ad = rep.get(Ad.class);
+		adBusiness.set(ad);
+		rep.set("new champ", "champ");
+		return rep.toString();
+	}
 
-    }
-
-    @POST
-    @Path( "create" )
-    @Consumes( "application/json" )
-    public String createAdJson( String json ) {
-        GsonRepresentation rep = new GsonRepresentation( json );
-        Ad ad = rep.get( Ad.class );
-        adBusiness.add( ad );
-        // Cache.getInstance().invalidate( "ads" );
-        return rep.toString();
-    }
-
-    @PUT
-    @Path( "update" )
-    @Consumes( "application/json" )
-    public String addAd( String json ) {
-        GsonRepresentation rep = new GsonRepresentation( json );
-        Ad ad = rep.get( Ad.class );
-        adBusiness.set( ad );
-        rep.set( "new champ", "champ" );
-        Cache.getInstance().invalidate( "ad" + ad.getId() );
-        Cache.getInstance().displayCache();
-        return rep.toString();
-    }
-
-    @DELETE
-    @Path( "delete/{ad}" )
-    public String deleteAd( @PathParam( "ad" ) Long adId ) {
-        Ad ad = adBusiness.find( adId );
-        adBusiness.delete( ad );
-        GsonRepresentation rep = new GsonRepresentation( ad );
-        Cache.getInstance().invalidate( "ad" + ad.getId() );
-        Cache.getInstance().displayCache();
-        return rep.toString();
-    }
+	@DELETE
+	@Path("delete/{ad}")
+	public String deleteAd(@PathParam("ad") Long adId) {
+		Ad ad = adBusiness.find(adId);
+		adBusiness.delete(ad);
+		GsonRepresentation rep = new GsonRepresentation(ad);
+		return rep.toString();
+	}
 
 }
