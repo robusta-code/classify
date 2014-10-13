@@ -44,7 +44,7 @@ import javax.ws.rs.PathParam;
 
 /**
  * Nicolas Zozol for Robusta Code 2014
- *
+ * 
  * @author Nicolas Zozol
  */
 
@@ -77,7 +77,7 @@ public class AdController extends JaxRsController {
     @Path( "{ad}" )
     public String listByAd( @PathParam( "ad" ) Long adId ) {
 
-        Resource resource = Cache.getInstance().get( "ad" + adId );
+        Resource resource = Cache.getInstance().get( "ad:" + adId );
         if ( resource == null ) {
             resource = adBusiness.find( adId );
             Cache.getInstance().put( resource );
@@ -121,7 +121,7 @@ public class AdController extends JaxRsController {
         Ad ad = rep.get( Ad.class );
         adBusiness.set( ad );
         rep.set( "new champ", "champ" );
-        Cache.getInstance().invalidate( "ad" + ad.getId() );
+        Cache.getInstance().invalidate( "ad:" + ad.getId() );
         Cache.getInstance().displayCache();
         return rep.toString();
     }
@@ -132,7 +132,7 @@ public class AdController extends JaxRsController {
         Ad ad = adBusiness.find( adId );
         adBusiness.delete( ad );
         GsonRepresentation rep = new GsonRepresentation( ad );
-        Cache.getInstance().invalidate( "ad" + ad.getId() );
+        Cache.getInstance().invalidate( "ad:" + ad.getId() );
         Cache.getInstance().displayCache();
         return rep.toString();
     }

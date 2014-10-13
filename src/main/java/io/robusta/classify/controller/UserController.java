@@ -45,7 +45,7 @@ import javax.ws.rs.PathParam;
 
 /**
  * Nicolas Zozol for Robusta Code 2014
- *
+ * 
  * @author Nicolas Zozol
  */
 @Path( "user" )
@@ -77,7 +77,7 @@ public class UserController extends JaxRsController {
     @GET
     @Path( "{user}" )
     public String listByUser( @PathParam( "user" ) Long userId ) {
-        Resource resource = Cache.getInstance().get( "user" + userId );
+        Resource resource = Cache.getInstance().get( "user:" + userId );
         if ( resource == null ) {
             if ( !userBusiness.userExists( userId ) ) {
                 return "";
@@ -125,7 +125,7 @@ public class UserController extends JaxRsController {
         User u = rep.get( User.class );
         userBusiness.set( u );
         rep.set( "new champ", "champ" );
-        Cache.getInstance().invalidate( "user" + u.getId() );
+        Cache.getInstance().invalidate( "user:" + u.getId() );
         Cache.getInstance().displayCache();
         return rep.toString();
     }
@@ -139,7 +139,7 @@ public class UserController extends JaxRsController {
         User u = userBusiness.find( userId );
         userBusiness.delete( u );
         GsonRepresentation rep = new GsonRepresentation( u );
-        Cache.getInstance().invalidate( "user" + u.getId() );
+        Cache.getInstance().invalidate( "user:" + u.getId() );
         Cache.getInstance().displayCache();
         return rep.toString();
     }

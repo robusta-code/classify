@@ -180,7 +180,7 @@ public class ClassifyDataSource {
 
         Ad magicalMisteryTour = new Ad( 6, nicolas(), "Magical Mistery Tour", "Rooooool up !!!!", 18.5f,
                 wrappper.getById( 14L ) );
-        magicalMisteryTour.addTags( this.tags.getById( 2L ) );
+        magicalMisteryTour.addTags( this.tags.getById( 1L ), this.tags.getById( 2L ) );
 
         Collections.addAll( this.ads, r4, megane, laFerrari, condominium, farm, magicalMisteryTour );
 
