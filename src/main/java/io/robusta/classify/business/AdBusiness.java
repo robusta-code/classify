@@ -26,6 +26,7 @@ package io.robusta.classify.business;
 import io.robusta.classify.ClassifyDataSource;
 import io.robusta.classify.domain.Ad;
 import io.robusta.classify.domain.User;
+import io.robusta.rra.resource.Resource;
 import io.robusta.rra.resource.ResourceCollectionWrapper;
 import io.robusta.rra.resource.ResourceList;
 
@@ -41,7 +42,7 @@ public class AdBusiness {
 
     ClassifyDataSource ds = ClassifyDataSource.getInstance();
 
-    public Collection<Ad> list() {
+    public ResourceList<Long, Ad> list() {
         return ds.getAds();
     }
 

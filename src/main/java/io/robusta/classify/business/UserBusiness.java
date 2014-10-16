@@ -24,6 +24,7 @@
 package io.robusta.classify.business;
 
 import io.robusta.classify.ClassifyDataSource;
+import io.robusta.classify.domain.Ad;
 import io.robusta.classify.domain.User;
 import io.robusta.rra.resource.ResourceList;
 
@@ -47,7 +48,7 @@ public class UserBusiness {
         // return ds.getUsers().getById( id );
     }
 
-    public Collection<User> list() {
+    public ResourceList<Long, User> list() {
         return ds.getUsers();
     }
 

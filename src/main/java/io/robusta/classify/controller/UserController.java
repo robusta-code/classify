@@ -25,14 +25,14 @@ package io.robusta.classify.controller;
 
 import io.robusta.classify.business.UserBusiness;
 import io.robusta.classify.domain.User;
-import io.robusta.rra.cache.Cache;
+import io.robusta.rra.cache.MyCache;
+import io.robusta.rra.cache.RraCache;
 import io.robusta.rra.controller.JaxRsController;
 import io.robusta.rra.representation.Representation;
 import io.robusta.rra.representation.implementation.GsonRepresentation;
 import io.robusta.rra.representation.implementation.JacksonRepresentation;
 import io.robusta.rra.resource.Resource;
-
-import java.util.List;
+import io.robusta.rra.resource.ResourceList;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -42,6 +42,9 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+
+import net.sf.ehcache.Ehcache;
+import net.sf.ehcache.Element;
 
 /**
  * Nicolas Zozol for Robusta Code 2014
@@ -56,39 +59,86 @@ public class UserController extends JaxRsController {
 
     @GET
     public String list() {
-        Representation representation;
-        // Resource resource;
-        // resource = Cache.getInstance().get( "users" );
-        // System.out.println( Cache.getInstance().getAll() );
-        // if ( resource != null ) {
-        // representation = new GsonRepresentation( resource );
-        // } else {
-        // List<User> users = (List<User>) userBusiness.list();
-        // Cache.getInstance().put( "users", users );
-        // representation = new GsonRepresentation( users );
-        // return rep.toString();
-        // }
-        List<User> users = (List<User>) userBusiness.list();
-        // Cache.getInstance().put( "users", users );
-        representation = new GsonRepresentation( users );
-        return representation.toString();
+        String path = uriInfo.getPath();
+
+        // EhCache
+        Ehcache rraCache = RraCache.getCache( "rraCache" );
+        Element element = rraCache.get( path );
+        Representation representation = null;
+        if ( element == null ) {
+            ResourceList<Long, User> users = userBusiness.list();
+            if ( users != null ) {
+                representation = new GsonRepresentation( users );
+                element = new Element( path, representation );
+                rraCache.put( element );
+            }
+        } else {
+            System.out.println( path + ": get from cache" );
+            representation = (Representation) element.getObjectValue();
+        }
+        RraCache.getInstance().displayCache();
+
+        // MyCache
+        Representation representation1 = MyCache.getInstance().get( path );
+        if ( representation1 == null ) {
+            ResourceList<Long, User> users = userBusiness.list();
+            representation1 = new GsonRepresentation( users );
+            MyCache.getInstance().put( path, representation1, users );
+        }
+        MyCache.getInstance().displayCache();
+
+        if ( representation != null ) {
+            return representation.toString();
+        }
+//        if ( representation1 != null ) {
+//            return representation1.toString();
+//        }
+        return "";
     }
 
     @GET
     @Path( "{user}" )
     public String listByUser( @PathParam( "user" ) Long userId ) {
-        Resource resource = Cache.getInstance().get( "user:" + userId );
-        if ( resource == null ) {
-            if ( !userBusiness.userExists( userId ) ) {
-                return "";
+
+        String path = uriInfo.getPath();
+
+        // EhCache
+        Ehcache rraCache = RraCache.getCache( "rraCache" );
+        Element element = rraCache.get( path );
+        Representation representation = null;
+        if ( element == null ) {
+            Resource resource = userBusiness.find( userId );
+            if ( resource != null ) {
+                representation = new GsonRepresentation( resource );
+                element = new Element( path, representation );
+                rraCache.put( element );
             }
-            resource = userBusiness.find( userId );
-            Cache.getInstance().put( resource );
+        } else {
+            System.out.println( path + ": get from cache" );
+            representation = (Representation) element.getObjectValue();
         }
-        Representation representation = new GsonRepresentation( resource );
-        representation.remove( "email" );
-        Cache.getInstance().displayCache();
-        return representation.toString();
+        RraCache.getInstance().displayCache();
+
+        // MyCache
+        Representation representation1 = MyCache.getInstance().get( path );
+        if ( representation1 == null ) {
+            Resource resource = userBusiness.find( userId );
+            if ( resource != null ) {
+                representation1 = new GsonRepresentation( resource );
+                MyCache.getInstance().put( path, representation1, resource );
+                representation1.remove( "email" );
+            }
+        }
+        MyCache.getInstance().displayCache();
+
+        if ( representation != null ) {
+            return representation.toString();
+        }
+//        if ( representation1 != null ) {
+//            return representation1.toString();
+//        }
+        return "";
+
     }
 
     @POST
@@ -125,8 +175,8 @@ public class UserController extends JaxRsController {
         User u = rep.get( User.class );
         userBusiness.set( u );
         rep.set( "new champ", "champ" );
-        Cache.getInstance().invalidate( "user:" + u.getId() );
-        Cache.getInstance().displayCache();
+        MyCache.getInstance().invalidate( "user:" + u.getId() );
+        MyCache.getInstance().displayCache();
         return rep.toString();
     }
 
@@ -139,8 +189,8 @@ public class UserController extends JaxRsController {
         User u = userBusiness.find( userId );
         userBusiness.delete( u );
         GsonRepresentation rep = new GsonRepresentation( u );
-        Cache.getInstance().invalidate( "user:" + u.getId() );
-        Cache.getInstance().displayCache();
+        MyCache.getInstance().invalidate( "user:" + u.getId() );
+        MyCache.getInstance().displayCache();
         return rep.toString();
     }
 
