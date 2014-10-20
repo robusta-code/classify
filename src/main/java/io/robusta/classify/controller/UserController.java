@@ -51,147 +51,146 @@ import net.sf.ehcache.Element;
  * 
  * @author Nicolas Zozol
  */
-@Path( "user" )
+// @Path("user")
 // @Produces( "application/json" )
 public class UserController extends JaxRsController {
 
-    UserBusiness userBusiness = new UserBusiness();
+	UserBusiness userBusiness = new UserBusiness();
 
-    @GET
-    public String list() {
-        String path = uriInfo.getPath();
+	@GET
+	public String list() {
+		String path = uriInfo.getPath();
 
-        // EhCache
-        Ehcache rraCache = RraCache.getCache( "rraCache" );
-        Element element = rraCache.get( path );
-        Representation representation = null;
-        if ( element == null ) {
-            ResourceList<Long, User> users = userBusiness.list();
-            if ( users != null ) {
-                representation = new GsonRepresentation( users );
-                element = new Element( path, representation );
-                rraCache.put( element );
-            }
-        } else {
-            System.out.println( path + ": get from cache" );
-            representation = (Representation) element.getObjectValue();
-        }
-        RraCache.getInstance().displayCache();
+		// EhCache
+		Ehcache rraCache = RraCache.getCache("rraCache");
+		Element element = rraCache.get(path);
+		Representation representation = null;
+		if (element == null) {
+			ResourceList<Long, User> users = userBusiness.list();
+			if (users != null) {
+				representation = new GsonRepresentation(users);
+				element = new Element(path, representation);
+				rraCache.put(element);
+			}
+		} else {
+			System.out.println(path + ": get from cache");
+			representation = (Representation) element.getObjectValue();
+		}
+		RraCache.getInstance().displayCache();
 
-        // MyCache
-        Representation representation1 = MyCache.getInstance().get( path );
-        if ( representation1 == null ) {
-            ResourceList<Long, User> users = userBusiness.list();
-            representation1 = new GsonRepresentation( users );
-            MyCache.getInstance().put( path, representation1, users );
-        }
-        MyCache.getInstance().displayCache();
+		// MyCache
+		Representation representation1 = MyCache.getInstance().get(path);
+		if (representation1 == null) {
+			ResourceList<Long, User> users = userBusiness.list();
+			representation1 = new GsonRepresentation(users);
+			MyCache.getInstance().put(path, representation1, users);
+		}
+		MyCache.getInstance().displayCache();
 
-        if ( representation != null ) {
-            return representation.toString();
-        }
-//        if ( representation1 != null ) {
-//            return representation1.toString();
-//        }
-        return "";
-    }
+		if (representation != null) {
+			return representation.toString();
+		}
+		// if ( representation1 != null ) {
+		// return representation1.toString();
+		// }
+		return "";
+	}
 
-    @GET
-    @Path( "{user}" )
-    public String listByUser( @PathParam( "user" ) Long userId ) {
+	@GET
+	@Path("{user}")
+	public String listByUser(@PathParam("user") Long userId) {
 
-        String path = uriInfo.getPath();
+		String path = uriInfo.getPath();
 
-        // EhCache
-        Ehcache rraCache = RraCache.getCache( "rraCache" );
-        Element element = rraCache.get( path );
-        Representation representation = null;
-        if ( element == null ) {
-            Resource resource = userBusiness.find( userId );
-            if ( resource != null ) {
-                representation = new GsonRepresentation( resource );
-                element = new Element( path, representation );
-                rraCache.put( element );
-            }
-        } else {
-            System.out.println( path + ": get from cache" );
-            representation = (Representation) element.getObjectValue();
-        }
-        RraCache.getInstance().displayCache();
+		// EhCache
+		Ehcache rraCache = RraCache.getCache("rraCache");
+		Element element = rraCache.get(path);
+		Representation representation = null;
+		if (element == null) {
+			Resource resource = userBusiness.find(userId);
+			if (resource != null) {
+				representation = new GsonRepresentation(resource);
+				element = new Element(path, representation);
+				rraCache.put(element);
+			}
+		} else {
+			System.out.println(path + ": get from cache");
+			representation = (Representation) element.getObjectValue();
+		}
+		RraCache.getInstance().displayCache();
 
-        // MyCache
-        Representation representation1 = MyCache.getInstance().get( path );
-        if ( representation1 == null ) {
-            Resource resource = userBusiness.find( userId );
-            if ( resource != null ) {
-                representation1 = new GsonRepresentation( resource );
-                MyCache.getInstance().put( path, representation1, resource );
-                representation1.remove( "email" );
-            }
-        }
-        MyCache.getInstance().displayCache();
+		// MyCache
+		Representation representation1 = MyCache.getInstance().get(path);
+		if (representation1 == null) {
+			Resource resource = userBusiness.find(userId);
+			if (resource != null) {
+				representation1 = new GsonRepresentation(resource);
+				MyCache.getInstance().put(path, representation1, resource);
+				representation1.remove("email");
+			}
+		}
+		MyCache.getInstance().displayCache();
 
-        if ( representation != null ) {
-            return representation.toString();
-        }
-//        if ( representation1 != null ) {
-//            return representation1.toString();
-//        }
-        return "";
+		if (representation != null) {
+			return representation.toString();
+		}
+		// if ( representation1 != null ) {
+		// return representation1.toString();
+		// }
+		return "";
 
-    }
+	}
 
-    @POST
-    @Path( "createJson" )
-    @Consumes( "application/json" )
-    public String createUserJson( String json ) {
-        GsonRepresentation rep = new GsonRepresentation( json );
-        User u = rep.get( User.class );
-        userBusiness.add( u );
-        // Cache.getInstance().invalidate( "users" );
-        return rep.toString();
-    }
+	@POST
+	@Path("createJson")
+	@Consumes("application/json")
+	public String createUserJson(String json) {
+		GsonRepresentation rep = new GsonRepresentation(json);
+		User u = rep.get(User.class);
+		userBusiness.add(u);
+		// Cache.getInstance().invalidate( "users" );
+		return rep.toString();
+	}
 
-    @POST
-    @Path( "createForm" )
-    @Consumes( "application/x-www-form-urlencoded" )
-    public String createUserForm( @FormParam( "id" ) Long id, @FormParam( "name" ) String name,
-            @FormParam( "email" ) String email ) {
-        User newUSer = new User( id, name, email );
-        System.out.println( id );
-        GsonRepresentation rep = new GsonRepresentation( newUSer );
-        userBusiness.add( newUSer );
-        // Cache.getInstance().invalidate( "users" );
-        return rep.toString();
+	@POST
+	@Path("createForm")
+	@Consumes("application/x-www-form-urlencoded")
+	public String createUserForm(@FormParam("id") Long id, @FormParam("name") String name,
+			@FormParam("email") String email) {
+		User newUSer = new User(id, name, email);
+		System.out.println(id);
+		GsonRepresentation rep = new GsonRepresentation(newUSer);
+		userBusiness.add(newUSer);
+		// Cache.getInstance().invalidate( "users" );
+		return rep.toString();
 
-    }
+	}
 
-    @PUT
-    @Path( "update" )
-    @Consumes( "application/json" )
-    public String updateUser( String json ) {
-        // GsonRepresentation rep = new GsonRepresentation( json );
-        JacksonRepresentation rep = new JacksonRepresentation( json );
-        User u = rep.get( User.class );
-        userBusiness.set( u );
-        rep.set( "new champ", "champ" );
-        MyCache.getInstance().invalidate( "user:" + u.getId() );
-        MyCache.getInstance().displayCache();
-        return rep.toString();
-    }
+	@PUT
+	@Path("update")
+	@Consumes("application/json")
+	public String updateUser(String json) {
+		// GsonRepresentation rep = new GsonRepresentation( json );
+		JacksonRepresentation rep = new JacksonRepresentation(json);
+		User u = rep.get(User.class);
+		userBusiness.set(u);
+		rep.set("new champ", "champ");
+		MyCache.getInstance().invalidate("user:" + u.getId());
+		MyCache.getInstance().displayCache();
+		return rep.toString();
+	}
 
-    @DELETE
-    @Path( "delete/{user}" )
-    public String deleteUser( @PathParam( "user" ) Long userId ) {
-        if ( !userBusiness.userExists( userId ) ) {
-            throw new IllegalArgumentException();
-        }
-        User u = userBusiness.find( userId );
-        userBusiness.delete( u );
-        GsonRepresentation rep = new GsonRepresentation( u );
-        MyCache.getInstance().invalidate( "user:" + u.getId() );
-        MyCache.getInstance().displayCache();
-        return rep.toString();
-    }
-
+	@DELETE
+	@Path("delete/{user}")
+	public String deleteUser(@PathParam("user") Long userId) {
+		if (!userBusiness.userExists(userId)) {
+			throw new IllegalArgumentException();
+		}
+		User u = userBusiness.find(userId);
+		userBusiness.delete(u);
+		GsonRepresentation rep = new GsonRepresentation(u);
+		MyCache.getInstance().invalidate("user:" + u.getId());
+		MyCache.getInstance().displayCache();
+		return rep.toString();
+	}
 }

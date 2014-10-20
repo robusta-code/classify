@@ -51,7 +51,7 @@ import net.sf.ehcache.Element;
  * @author Nicolas Zozol
  */
 
-@Path( "ad" )
+@Path("ad")
 // @Produces( "application/json" )
 public class AdController extends JaxRsController {
 

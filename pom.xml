@@ -46,7 +46,7 @@
 		<dependency>
 			<groupId>io.robusta</groupId>
 			<artifactId>rra</artifactId>
-			<version>0.2-SNAPSHOT</version>
+			<version>0.2</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
