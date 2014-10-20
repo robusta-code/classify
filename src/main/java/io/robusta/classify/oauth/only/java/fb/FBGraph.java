@@ -1,4 +1,4 @@
-package io.robusta.classify.testingOauth.only.java.ggl;
+package io.robusta.classify.oauth.only.java.fb;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -10,10 +10,10 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class GGLGraph {
+public class FBGraph {
 	private String accessToken;
 
-	public GGLGraph(String accessToken) {
+	public FBGraph(String accessToken) {
 		this.accessToken = accessToken;
 	}
 
@@ -21,7 +21,7 @@ public class GGLGraph {
 		String graph = null;
 		try {
 
-			String g = "https://accounts.google.com/?" + accessToken;
+			String g = "https://graph.facebook.com/me?" + accessToken;
 			URL u = new URL(g);
 			URLConnection c = u.openConnection();
 			BufferedReader in = new BufferedReader(new InputStreamReader(c.getInputStream()));

@@ -43,7 +43,7 @@ import javax.ws.rs.PathParam;
 /**
  * Nicolas Zozol for Robusta Code 2014
  *
- * @author Nicolas Zozol
+ * @author Nicolas Zozol, Stephanie Pitou, Jean-Marc Villatte
  */
 
 @Path("ad")

@@ -28,7 +28,10 @@ import io.robusta.rra.controller.ClientPropertyServlet;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Created by dev on 10/09/14.
+ * Nicolas Zozol for Robusta Code 2014
+ *
+ * @author Stephanie Pitou, Jean-Marc Villatte
+ * Created on 10/09/14.
  */
 public class MyClientPropertyServlet extends ClientPropertyServlet {
 

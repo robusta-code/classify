@@ -1,4 +1,5 @@
-package io.robusta.classify.testingOauth.scribe;
+
+package io.robusta.classify.oauth.scribe;
 
 import java.util.Scanner;
 
@@ -11,6 +12,11 @@ import org.scribe.model.Verb;
 import org.scribe.model.Verifier;
 import org.scribe.oauth.OAuthService;
 
+/**
+ * Nicolas Zozol for Robusta Code 2014
+ * 
+ * @author Stephanie Pitou
+ */
 public class GoogleExample {
 	private static final String NETWORK_NAME = "Google";
 	private static final String AUTHORIZE_URL = "https://www.google.com/accounts/OAuthAuthorizeToken?oauth_token=";

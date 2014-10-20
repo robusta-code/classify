@@ -20,19 +20,34 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+package io.robusta.classify.oauth.google.api;
 
-package io.robusta.classify.controller.config.spring;
+import java.io.IOException;
 
-import org.springframework.context.annotation.Configuration;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Nicolas Zozol for Robusta Code 2014
  * 
  * @author Stephanie Pitou
  */
-// any bean configured here will be accessed by all spring servlets within same
-// web application context
-@Configuration
-public class ApplicationConfig {
+@WebServlet("/ggloauth")
+public class GglOauthServlet extends HttpServlet {
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		RequestDispatcher disp = this.getServletContext().getRequestDispatcher("/googleOauth.jsp");
+		disp.include(req, resp);
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		doGet(req, resp);
+	}
 
 }

@@ -38,6 +38,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
+ * Nicolas Zozol for Robusta Code 2014
+ * 
+ * @author Jean-Marc Villatte
+ */
+/**
  * Handles requests for the application home page.
  */
 @Controller

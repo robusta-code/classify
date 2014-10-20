@@ -1,4 +1,4 @@
-package io.robusta.classify.testingOauth.only.java.ggl;
+package io.robusta.classify.oauth.only.java.fb;
 
 
 import java.io.IOException;
@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/OauthGGL")
+@WebServlet("/myOauth")
 public class MainMenu extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -24,10 +24,10 @@ public class MainMenu extends HttpServlet {
 			throw new RuntimeException(
 					"ERROR: Didn't get code parameter in callback.");
 		}
-		GGLConnection fbConnection = new GGLConnection();
+		FBConnection fbConnection = new FBConnection();
 		String accessToken = fbConnection.getAccessToken(code);
 
-		GGLGraph fbGraph = new GGLGraph(accessToken);
+		FBGraph fbGraph = new FBGraph(accessToken);
 		String graph = fbGraph.getFBGraph();
 		Map<String, String> fbProfileData = fbGraph.getGraphData(graph);
 		ServletOutputStream out = res.getOutputStream();

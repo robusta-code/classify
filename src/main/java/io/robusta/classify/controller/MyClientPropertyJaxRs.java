@@ -27,12 +27,15 @@ import io.robusta.rra.controller.ClientPropertyJaxRs;
 
 import javax.ws.rs.core.HttpHeaders;
 
+
 /**
- * Created by dev on 10/09/14.
+ * Nicolas Zozol for Robusta Code 2014
+ *
+ * @author Stephanie Pitou, Jean-Marc Villatte
  */
 public class MyClientPropertyJaxRs extends ClientPropertyJaxRs {
 
-    public boolean isWebKit( HttpHeaders httpHeaders ) {
-        return getAgent( httpHeaders ).toUpperCase().contains( "WEBKIT" );
-    }
+	public boolean isWebKit(HttpHeaders httpHeaders) {
+		return getAgent(httpHeaders).toUpperCase().contains("WEBKIT");
+	}
 }

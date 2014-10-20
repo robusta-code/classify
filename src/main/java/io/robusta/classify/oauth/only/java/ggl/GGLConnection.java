@@ -1,4 +1,4 @@
-package io.robusta.classify.testingOauth.only.java.fb;
+package io.robusta.classify.oauth.only.java.ggl;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,18 +9,19 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 
-public class FBConnection {
-	public static final String FB_APP_ID = "234231262685378";
-	public static final String FB_APP_SECRET = "y2a73dede3n49uid13502f5ab8cdt390";
-	public static final String REDIRECT_URI = "http://localhost:8080/Facebook_Login/fbhome";
+public class GGLConnection {
+	public static final String GGL_APP_ID = "1080623739209-32tc41pi03nq7adc9ra3dts0m6bsg9k7.apps.googleusercontent.com";
+	public static final String GGL_APP_SECRET = "j1BA8-tamxmA---KZ2vOZyWC";
+	public static final String REDIRECT_URI = "http://localhost:8080/classify/googleOauth.jsp"; //"https://localhost:8080/oauth2callback";
 
 	static String accessToken = "";
 
 	public String getFBAuthUrl() {
 		String fbLoginUrl = "";
 		try {
-			fbLoginUrl = "http://www.facebook.com/dialog/oauth?" + "client_id=" + FBConnection.FB_APP_ID
-					+ "&redirect_uri=" + URLEncoder.encode(FBConnection.REDIRECT_URI, "UTF-8") + "&scope=email";
+			fbLoginUrl = "https://accounts.google.com/o/oauth2/auth?" + "client_id=" + GGLConnection.GGL_APP_ID
+					+ "&redirect_uri=" + URLEncoder.encode(GGLConnection.REDIRECT_URI, "UTF-8"); // +
+																									// "&scope=email";
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
@@ -30,9 +31,9 @@ public class FBConnection {
 	public String getFBGraphUrl(String code) {
 		String fbGraphUrl = "";
 		try {
-			fbGraphUrl = "https://graph.facebook.com/oauth/access_token?" + "client_id=" + FBConnection.FB_APP_ID
-					+ "&redirect_uri=" + URLEncoder.encode(FBConnection.REDIRECT_URI, "UTF-8") + "&client_secret="
-					+ FB_APP_SECRET + "&code=" + code;
+			fbGraphUrl = "https://accounts.google.com/o/oauth2/token?" + "client_id=" + GGLConnection.GGL_APP_ID
+					+ "&redirect_uri=" + URLEncoder.encode(GGLConnection.REDIRECT_URI, "UTF-8") + "&client_secret="
+					+ GGL_APP_SECRET + "&code=" + code;
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}

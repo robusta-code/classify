@@ -33,45 +33,48 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Created by dev on 09/09/14.
+ * Nicolas Zozol for Robusta Code 2014
+ * 
+ * @author Stephanie Pitou, Jean-Marc Villatte
+ *
+ *         Created on 09/09/14.
  */
-@WebServlet( "/test" )
+@WebServlet("/test")
 public class ServletSandbox extends ServletController {
 
-    @Override
-    public void init() throws ServletException {
-        super.init();
-        // System.out.println("My application starts");
-        setClientProperty( new MyClientPropertyServlet() );
-        // decomment to override Rra.defaultRepresentation (GsonRepresentation
-        // by default)
-        // Rra.defaultRepresentation = new JacksonRepresentation();
-    }
+	@Override
+	public void init() throws ServletException {
+		super.init();
+		// System.out.println("My application starts");
+		setClientProperty(new MyClientPropertyServlet());
+		// decomment to override Rra.defaultRepresentation (GsonRepresentation
+		// by default)
+		// Rra.defaultRepresentation = new JacksonRepresentation();
+	}
 
-    protected void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException,
-            IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+			IOException {
 
-        String[] userPassword = getBasicAuthentication( request, response );
-        if ( userPassword[0] != null ) {
-            System.out.println( "user " + userPassword[0].toString() );
-            System.out.println( "Password " + userPassword[1].toString() );
-        }
-        System.out.println( "getRepresentation " + getRepresentation( request ) );
-        System.out.println( "validate " + validate( request, response, "ndame", "email" ) );
-        System.out.println( "isChrome()" + getClientProperty().isChrome( request ) );
-        System.out.println( "isFF()" + getClientProperty().isFF( request ) );
-        response.getWriter().println( getRepresentation( request ) );
+		String[] userPassword = getBasicAuthentication(request, response);
+		if (userPassword[0] != null) {
+			System.out.println("user " + userPassword[0].toString());
+			System.out.println("Password " + userPassword[1].toString());
+		}
+		System.out.println("getRepresentation " + getRepresentation(request));
+		System.out.println("validate " + validate(request, response, "ndame", "email"));
+		System.out.println("isChrome()" + getClientProperty().isChrome(request));
+		System.out.println("isFF()" + getClientProperty().isFF(request));
+		response.getWriter().println(getRepresentation(request));
 
-    }
+	}
 
-    protected void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException,
-            IOException {
-        System.out.println( getClientProperty().isChrome( request ) );
-    }
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println(getClientProperty().isChrome(request));
+	}
 
-    @Override
-    public MyClientPropertyServlet getClientProperty() {
-        return (MyClientPropertyServlet) super.getClientProperty();
-    }
+	@Override
+	public MyClientPropertyServlet getClientProperty() {
+		return (MyClientPropertyServlet) super.getClientProperty();
+	}
 
 }
