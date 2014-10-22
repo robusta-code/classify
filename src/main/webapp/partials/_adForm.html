@@ -1,0 +1,32 @@
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<div class="form-group">
+			<label for="title" class="col-sm-2 control-label">Title</label>
+			<div class="col-sm-10">
+				<input type="text" ng-model="ad.title" class="form-control"
+					id="title" placeholder="Title Here" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="price" class="col-sm-2 control-label">Price</label>
+			<div class="col-sm-10">
+				<input type="text" ng-model="ad.price" class="form-control"
+					id="price" placeholder="Price Here" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="category" class="col-sm-2 control-label">Category</label>
+			<div class="col-sm-10">
+				<input type="text" ng-model="ad.category.name" class="form-control"
+					id="category" placeholder="Category Here" />
+			</div>
+		</div>
+	</div>
+	<div class="panel-body">
+		<label>Content</label>
+		<textarea type="text" ng-model="ad.content" class="form-control"
+			id="content" placeholder="Content Here" rows="3"></textarea>
+	</div>
+</div>
+
+<input type="submit" class="btn btn-primary" value="Save" />

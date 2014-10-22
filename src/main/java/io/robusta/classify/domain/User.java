@@ -55,6 +55,10 @@ public class User implements Resource<Long> {
         return this.id;
     }
 
+    public void setId( Long id ) {
+        this.id = id;
+    }
+
     @Override
     public String getPrefix() {
         return "user";

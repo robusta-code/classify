@@ -175,7 +175,7 @@ public class ClassifyDataSource {
         Ad laFerrari = new Ad( 3, sheldon(), "LaFerrari", "Achetez, c'est super cher", 250000000, wrappper.getById( 5L ) );
 
         Ad condominium = new Ad( 4, leonard(), "Super Condominium", "Live rich", 145233256, wrappper.getById( 8L ) );
-        Ad farm = new Ad( 5, leonard(), "FarmVille", "Authentic 3D farm", 25.5f, wrappper.getById( 7L ) );
+        Ad farm = new Ad( 5, leonard(), "FarmVille", "Authentic 3D farm<br/>15 rooms", 25.5f, wrappper.getById( 7L ) );
         farm.addTags( this.tags.getById( 1L ) );
 
         Ad magicalMisteryTour = new Ad( 6, nicolas(), "Magical Mistery Tour", "Rooooool up !!!!", 18.5f,

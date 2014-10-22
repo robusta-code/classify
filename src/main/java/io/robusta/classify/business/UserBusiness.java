@@ -24,11 +24,12 @@
 package io.robusta.classify.business;
 
 import io.robusta.classify.ClassifyDataSource;
-import io.robusta.classify.domain.Ad;
 import io.robusta.classify.domain.User;
 import io.robusta.rra.resource.ResourceList;
 
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Nicolas Zozol for Robusta Code 2014
@@ -60,6 +61,15 @@ public class UserBusiness {
 
     public User add( User user ) {
         ResourceList<Long, User> users = ds.getUsers();
+        List<Long> ids = new ArrayList<Long>();
+        for ( User user2 : users ) {
+            ids.add( user2.getId() );
+        }
+        long newId = 1;
+        if ( ids.size() > 0 ) {
+            newId = Collections.max( ids ) + 1;
+        }
+        user.setId( newId );
         users.add( user );
         return user;
     }

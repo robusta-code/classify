@@ -1,0 +1,17 @@
+<a ui-sref="newUser" class="btn-primary btn-lg">Add New User</a>
+<br/>
+<br/>
+<br/>
+<table class="table"  ng-show="users.length">
+	<tr>
+		<td><h3>All Users</h3></td>
+		<td></td>
+	</tr>
+	<tr ng-repeat="user in users">
+		<td>{{user.id}}</td>
+		<td>{{user.name}}</td>
+		<td>{{user.email}}</td>
+		<td><a class="btn btn-primary" ui-sref="viewUser({id:user.id})">View</a>
+			<a class="btn btn-danger" ng-click="deleteUser(user)">Delete</a></td>
+	</tr>
+</table>
