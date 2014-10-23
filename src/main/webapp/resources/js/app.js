@@ -22,7 +22,7 @@ classifyApp.config(function($stateProvider) {
 		url : '/ads',
 		templateUrl : 'partials/ads.html',
 		controller : 'AdListController'
-	}).state('viewAd', { // state for showing single user
+	}).state('viewAd', { // state for showing single ad
 		url : '/ads/:id/view',
 		templateUrl : 'partials/ad-view.html',
 		controller : 'AdViewController'
@@ -30,11 +30,18 @@ classifyApp.config(function($stateProvider) {
 		url : '/ads/new',
 		templateUrl : 'partials/ad-add.html',
 		controller : 'AdCreateController'
-	}).state('editAd', { // state for updating a user
+	}).state('editAd', { // state for updating a ad
 		url : '/ads/:id/edit',
 		templateUrl : 'partials/ad-edit.html',
 		controller : 'AdEditController'
+	}).state('myAds', { // state for updating a ad
+		url : '/myads',
+		templateUrl : 'partials/myAds.html',
+		controller : 'MyAdsController'
 	});
-}).run(function($state) {
-	$state.go('ads'); // make a transition to users state when app starts
+}).run(function($state,$rootScope, User) {
+	$state.go('ads'); // make a transition to ads state when app starts
+	$rootScope.userAuth =User.get({
+		id : 2
+	});
 });

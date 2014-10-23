@@ -1,26 +1,9 @@
-<div class="row">
-	<div class="col-lg-6">
-		<button type="button" ui-sref="newAd" class="btn-primary btn-lg">New
-			ad</button>
-
-		<button type="button" ui-sref="myAd" class="btn-primary btn-lg">My
-			Ads</button>
-	</div>
-	<div class="col-lg-6">
-
-		<div class="input-group">
-			<span class="input-group-addon"><span
-				class="glyphicon glyphicon-search"></span></span> <input type="text"
-				class="form-control" placeholder="Search">
-		</div>
-	</div>
-</div>
 <h2>View ad</h2>
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<b>{{ad.title}}</b>
 		<div class="pull-right">{{ad.price}} €</div>
-		<br /> {{ad.category.name}}
+		<br />{{ad.category.name}} <br />post by {{ad.guy.name}}
 	</div>
 	<div class="panel-body">
 		<p ng-bind-html="ad.content"></p>

@@ -1,17 +1,10 @@
-<table class="table usertable">
-  <tr>
-    <td><h3>Details for {{user.name}}</h3></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>User Name</td>
-    <td>{{user.name}}</td>
-  </tr>
-  <tr>
-    <td>Email</td>
-    <td>{{user.email}}</td>
-  </tr>
-</table>
-<div>
-  <a class="btn btn-primary" ui-sref="editUser({id:user.id})">Edit</a>
+<h2>View user</h2>
+<div class="panel panel-default">
+	<div class="panel-body">
+		<b>{{user.name}}</b> <br />{{user.email}} <br />{{user.address.address1}} <br />{{user.address.address2}}
+		<br />{{user.address.zip}} {{user.address.city}} <br />{{user.address.state}}
+		<div class="pull-right">
+			<a class="btn btn-primary" ui-sref="editUser({id:user.id})">Edit</a>
+		</div>
+	</div>
 </div>

@@ -1,17 +1,55 @@
-<div class="form-group">
-  <label for="name" class="col-sm-2 control-label">Name</label>
-  <div class="col-sm-10">
-    <input type="text" ng-model="user.name" class="form-control" id="name" placeholder="User Name Here"/>
-  </div>
+<div class="panel panel-default">
+	<div class="panel-body">
+		<div class="form-group">
+			<label for="name" class="col-sm-2 control-label">Name</label>
+			<div class="col-sm-10">
+				<input type="text" ng-model="user.name" class="form-control"
+					id="name" placeholder="Name Here" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="email" class="col-sm-2 control-label">Email</label>
+			<div class="col-sm-10">
+				<input type="text" ng-model="user.email" class="form-control"
+					id="email" placeholder="Email Here" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="address1" class="col-sm-2 control-label">Address1</label>
+			<div class="col-sm-10">
+				<input type="text" ng-model="user.address.address1"
+					class="form-control" id="address1" placeholder="Address1 Here" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="address2" class="col-sm-2 control-label">Address2</label>
+			<div class="col-sm-10">
+				<input type="text" ng-model="user.address.address2"
+					class="form-control" id="address2" placeholder="Address2 Here" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="zip" class="col-sm-2 control-label">Zip</label>
+			<div class="col-sm-10">
+				<input type="text" ng-model="user.address.zip" class="form-control"
+					id="zip" placeholder="Zip Here" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="city" class="col-sm-2 control-label">City</label>
+			<div class="col-sm-10">
+				<input type="text" ng-model="user.address.city" class="form-control"
+					id="city" placeholder="City Here" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="state" class="col-sm-2 control-label">State</label>
+			<div class="col-sm-10">
+				<input type="text" ng-model="user.address.state"
+					class="form-control" id="state" placeholder="State Here" />
+			</div>
+		</div>
+	</div>
 </div>
-<div class="form-group">
-  <label for="email" class="col-sm-2 control-label">Email</label>
-  <div class="col-sm-10">
-    <input type="text" ng-model="user.email" class="form-control" id="email" placeholder="User Email Here"/>
-  </div>
-</div>
-<div class="form-group">
-  <div class="col-sm-offset-2 col-sm-10">
-    <input type="submit" class="btn btn-primary" value="Save"/>
-  </div>
-</div>
+
+<input type="submit" class="btn btn-primary" value="Save" />

@@ -159,8 +159,8 @@ public class ClassifyDataSource {
 
     private void initAddresses() {
 
-        Address address1 = new Address( 1L, "field1", "field2", "31000", "Toulouse", "France" );
-        Address address2 = new Address( 2L, "field1", "", "81000", "Albi", "France" );
+        Address address1 = new Address( 1L, "5 rue des lauriers", "bat A", "31000", "Toulouse", "France" );
+        Address address2 = new Address( 2L, "8 rue du taur", "", "81000", "Albi", "France" );
         Collections.addAll( this.addresses, address1, address2 );
 
     }
