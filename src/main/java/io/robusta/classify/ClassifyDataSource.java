@@ -159,8 +159,8 @@ public class ClassifyDataSource {
 
     private void initAddresses() {
 
-        Address address1 = new Address( 1L, "field1", "field2", "31000", "Toulouse", "France" );
-        Address address2 = new Address( 2L, "field1", "", "81000", "Albi", "France" );
+        Address address1 = new Address( 1L, "5 rue des lauriers", "bat A", "31000", "Toulouse", "France" );
+        Address address2 = new Address( 2L, "8 rue du taur", "", "81000", "Albi", "France" );
         Collections.addAll( this.addresses, address1, address2 );
 
     }
@@ -175,7 +175,7 @@ public class ClassifyDataSource {
         Ad laFerrari = new Ad( 3, sheldon(), "LaFerrari", "Achetez, c'est super cher", 250000000, wrappper.getById( 5L ) );
 
         Ad condominium = new Ad( 4, leonard(), "Super Condominium", "Live rich", 145233256, wrappper.getById( 8L ) );
-        Ad farm = new Ad( 5, leonard(), "FarmVille", "Authentic 3D farm", 25.5f, wrappper.getById( 7L ) );
+        Ad farm = new Ad( 5, leonard(), "FarmVille", "Authentic 3D farm<br/>15 rooms", 25.5f, wrappper.getById( 7L ) );
         farm.addTags( this.tags.getById( 1L ) );
 
         Ad magicalMisteryTour = new Ad( 6, nicolas(), "Magical Mistery Tour", "Rooooool up !!!!", 18.5f,

@@ -1,0 +1,10 @@
+<h2>View user</h2>
+<div class="panel panel-default">
+	<div class="panel-body">
+		<b>{{user.name}}</b> <br />{{user.email}} <br />{{user.address.address1}} <br />{{user.address.address2}}
+		<br />{{user.address.zip}} {{user.address.city}} <br />{{user.address.state}}
+		<div class="pull-right">
+			<a class="btn btn-primary btn-sm" ui-sref="editUser({id:user.id})">Edit</a>
+		</div>
+	</div>
+</div>

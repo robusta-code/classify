@@ -1,0 +1,20 @@
+<h2>My ads</h2>
+<div ng-repeat="ad in ads|filter: matchGuy(userAuth.id)">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<a ui-sref="viewAd({id:ad.id})"><b>{{ad.title}}</b></a>
+			<div class="pull-right">{{ad.price}} €</div>
+			<br />{{ad.category.name}} <br />post by {{ad.guy.name}}
+		</div>
+		<div class="panel-body">
+			<p ng-bind-html="ad.content"></p>
+			<div class="pull-right">
+				<!--<a class="glyphicon glyphicon-pencil" ui-sref="editAd({id:ad.id})"></a>
+				<a class="glyphicon glyphicon-trash" ng-click="deleteAdd(ad)"></a>-->
+				 <a class="btn btn-primary btn-sm" ui-sref="editAd({id:ad.id})">Edit</a>
+				<a class="btn btn-danger btn-sm" ng-click="deleteAdd(ad)">Delete</a> 
+			</div>
+			</td>
+		</div>
+	</div>
+</div>

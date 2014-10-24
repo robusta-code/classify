@@ -1,0 +1,11 @@
+<h2>View ad</h2>
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<b>{{ad.title}}</b>
+		<div class="pull-right">{{ad.price}} €</div>
+		<br />{{ad.category.name}} <br />post by {{ad.guy.name}}
+	</div>
+	<div class="panel-body">
+		<p ng-bind-html="ad.content"></p>
+	</div>
+</div>

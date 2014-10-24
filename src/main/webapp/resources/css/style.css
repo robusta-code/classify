@@ -1,0 +1,13 @@
+@CHARSET "UTF-8";
+
+.pointer {
+	cursor: pointer;
+}
+
+.alignRight {
+	text-align: right;
+}
+
+.alignBottom {
+vertical-align:bottom;
+}

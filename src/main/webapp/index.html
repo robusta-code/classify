@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<!-- Optional theme -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="resources/css/style.css">
+</head>
+<body ng-app="classifyApp">
+	<div>
+		<div class="container">
+			<div class="row top-buffer">
+				<div class="col-xs-8 col-xs-offset-2">
+					<div class="row">
+						<div class="col-lg-6 alignRight">
+							<span class="pointer" ui-sref="ads"><h1>Classify</h1></span>
+						</div>
+						<div class="col-lg-6 alignRight alignBottom">
+							{{userAuth.name}} <img class="pointer"
+								src="resources/img/avatar.jpg"
+								ui-sref="viewUser({id:userAuth.id})" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<br />
+		<div class="container">
+			<div class="row top-buffer">
+				<div class="col-xs-8 col-xs-offset-2">
+					<div class="row">
+						<div class="col-lg-6">
+							<button type="button" ui-sref="newAd" class="btn btn-primary">New
+								ad</button>
+							<button type="button" ui-sref="myAds" class="btn btn-primary">My
+								Ads</button>
+							<button type="button" ui-sref="users" class="btn btn-danger">Users</button>
+						</div>
+					</div>
+					<br />
+					<div ui-view></div>
+					<!-- This is where our views will load -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<script
+		src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
+	<script
+		src="http://cdn.jsdelivr.net/angular.ui-router/0.2.11/angular-ui-router.js"></script>
+	<script
+		src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-resource.js"></script>
+	<script type="text/javascript"
+		src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-sanitize.js"></script>
+	<!-- Latest compiled and minified JavaScript -->
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<script src="resources/js/app.js"></script>
+	<script src="resources/js/controllers.js"></script>
+	<script src="resources/js/services.js"></script>
+</body>
+</html>
