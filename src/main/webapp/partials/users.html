@@ -1,7 +1,7 @@
-<a ui-sref="newUser" class="btn btn-primary">New User</a>
-<br/>
-<br/>
-<table class="table"  ng-show="users.length">
+<a ui-sref="newUser" class="btn btn-primary btn-sm">New User</a>
+<br />
+<br />
+<table class="table" ng-show="users.length">
 	<tr>
 		<td><h3>All Users</h3></td>
 		<td></td>
@@ -10,7 +10,12 @@
 		<td>{{user.id}}</td>
 		<td>{{user.name}}</td>
 		<td>{{user.email}}</td>
-		<td><a class="btn btn-primary" ui-sref="viewUser({id:user.id})">View</a>
-			<a class="btn btn-danger" ng-click="deleteUser(user)">Delete</a></td>
+		<td>
+			<!-- <a class="glyphicon glyphicon-pencil"
+			ui-sref="viewUser({id:user.id})"></a> <a
+			class="glyphicon glyphicon-trash" ng-click="deleteUser(user)"></a> -->
+			<a class="btn btn-primary btn-sm" ui-sref="viewUser({id:user.id})">View</a>
+			<a class="btn btn-danger btn-sm" ng-click="deleteUser(user)">Delete</a>
+		</td>
 	</tr>
 </table>

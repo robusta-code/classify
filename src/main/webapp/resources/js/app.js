@@ -42,6 +42,6 @@ classifyApp.config(function($stateProvider) {
 }).run(function($state,$rootScope, User) {
 	$state.go('ads'); // make a transition to ads state when app starts
 	$rootScope.userAuth =User.get({
-		id : 2
+		id : 1
 	});
 });

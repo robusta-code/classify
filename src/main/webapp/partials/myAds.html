@@ -9,11 +9,12 @@
 		<div class="panel-body">
 			<p ng-bind-html="ad.content"></p>
 			<div class="pull-right">
-				<a class="btn btn-primary" ui-sref="editAd({id:ad.id})">Edit</a>
-				<a class="btn btn-danger" ng-click="deleteAdd(ad)">Delete</a>
+				<!--<a class="glyphicon glyphicon-pencil" ui-sref="editAd({id:ad.id})"></a>
+				<a class="glyphicon glyphicon-trash" ng-click="deleteAdd(ad)"></a>-->
+				 <a class="btn btn-primary btn-sm" ui-sref="editAd({id:ad.id})">Edit</a>
+				<a class="btn btn-danger btn-sm" ng-click="deleteAdd(ad)">Delete</a> 
 			</div>
 			</td>
-
 		</div>
 	</div>
 </div>

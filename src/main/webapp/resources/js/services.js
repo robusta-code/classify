@@ -16,18 +16,7 @@ angular.module('classifyApp.services', []).factory('User', function($resource) {
 			method : 'PUT'
 		}
 	});
-}).factory('Auth', function(){
-	var user;
-
-	return{
-	    setUser : function(aUser){
-	        user = aUser;
-	    },
-	    isLoggedIn : function(){
-	        return(user)? user : false;
-	    }
-	  }
-	}).service('popupService',function($window){
+}).service('popupService',function($window){
     this.showPopup=function(message){
         return $window.confirm(message);
     }
